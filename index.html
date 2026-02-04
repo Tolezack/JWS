@@ -1,1874 +1,2164 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JordanWearStore - Loja Oficial de Roupas Jordan</title>
-<meta name="description" content="Loja oficial de camisas e calças Jordan. Encontre as melhores peças com estilo e qualidade premium.">
-<style>
-:root {
-    --primary-color: #000000;
-    --secondary-color: #e53935;
-    --accent-color: #25D366;
-    --light-gray: #f4f4f4;
-    --dark-gray: #333333;
-    --text-color: #222222;
-    --border-radius: 12px;
-    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --transition: all 0.3s ease;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background: #f8f9fa;
-    color: var(--text-color);
-    line-height: 1.6;
-}
-
-/* HEADER MELHORADO */
-header {
-    background: var(--primary-color);
-    color: white;
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo {
-    font-weight: bold;
-    font-size: 24px;
-    color: white;
-    letter-spacing: 1px;
-}
-
-.logo span {
-    color: var(--secondary-color);
-}
-
-.cart-icon {
-    position: relative;
-    cursor: pointer;
-    font-size: 24px;
-    padding: 8px;
-    border-radius: 50%;
-    transition: var(--transition);
-}
-
-.cart-icon:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.05);
-}
-
-.cart-count {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: var(--secondary-color);
-    color: white;
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-
-/* BANNER MELHORADO */
-.banner-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    height: 400px;
-    margin-bottom: 30px;
-}
-
-@media (max-width: 768px) {
-    .banner-container {
-        height: 250px;
-    }
-}
-
-.banner-slide {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    object-fit: cover;
-}
-
-.banner-slide.active {
-    opacity: 1;
-}
-
-.banner-dots {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-}
-
-.banner-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.banner-dot.active {
-    background: white;
-    transform: scale(1.2);
-}
-
-/* TABS MELHORADAS */
-.tabs-container {
-    max-width: 1200px;
-    margin: 0 auto 30px;
-    padding: 0 20px;
-}
-
-.tabs {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.tab {
-    padding: 12px 28px;
-    background: white;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 15px;
-    transition: var(--transition);
-    border: 2px solid transparent;
-    color: var(--text-color);
-    box-shadow: var(--box-shadow);
-}
-
-.tab:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-}
-
-.tab.active {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-/* SECTIONS */
-.section {
-    padding: 0 20px;
-    max-width: 1200px;
-    margin: 0 auto 50px;
-    display: block;
-}
-
-.section.hidden {
-    display: none;
-}
-
-/* PRODUCTS GRID MELHORADO */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 25px;
-    padding: 10px;
-}
-
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-        gap: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 12px;
-    }
-}
-
-/* PRODUCT CARD MELHORADO */
-.product-card {
-    background: white;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    transition: var(--transition);
-    height: 380px;
-    box-shadow: var(--box-shadow);
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.product-image-container {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    position: relative;
-}
-
-.product-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.product-card:hover .product-image {
-    transform: scale(1.05);
-}
-
-.product-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: var(--secondary-color);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: bold;
-    z-index: 2;
-}
-
-.product-info {
-    padding: 15px;
-}
-
-.product-name {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--text-color);
-    line-height: 1.4;
-    height: 42px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.product-price {
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 8px;
-}
-
-.product-price span {
-    font-size: 14px;
-    color: #666;
-    text-decoration: line-through;
-    margin-left: 5px;
-}
-
-/* STOCK INFO MELHORADO */
-.stock-info {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 15px;
-    font-size: 11px;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.stock-high { 
-    background: #e8f6ef;
-    color: #27ae60;
-}
-
-.stock-medium { 
-    background: #fef9e7;
-    color: #f39c12;
-}
-
-.stock-low { 
-    background: #fdedec;
-    color: #e74c3c;
-}
-
-.stock-out { 
-    background: #f2f3f4;
-    color: #7f8c8d;
-}
-
-/* PRODUCT BUTTONS */
-.product-buttons {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.product-btn {
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 13px;
-    transition: var(--transition);
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-}
-
-.buy-btn {
-    background: var(--primary-color);
-    color: white;
-}
-
-.buy-btn:hover {
-    background: var(--dark-gray);
-    transform: translateY(-2px);
-}
-
-.details-btn {
-    background: #f0f0f0;
-    color: var(--text-color);
-}
-
-.details-btn:hover {
-    background: #e0e0e0;
-    transform: translateY(-2px);
-}
-
-.disabled-btn {
-    background: #bdc3c7;
-    color: white;
-    cursor: not-allowed;
-}
-
-/* FILTROS ADICIONAIS */
-.filters {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.search-box {
-    flex: 1;
-    min-width: 250px;
-    position: relative;
-}
-
-.search-input {
-    width: 100%;
-    padding: 12px 20px 12px 45px;
-    border: 2px solid #e0e0e0;
-    border-radius: var(--border-radius);
-    font-size: 14px;
-    transition: var(--transition);
-    background: white;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-}
-
-.search-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #777;
-}
-
-.sort-select {
-    padding: 12px 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: var(--border-radius);
-    font-size: 14px;
-    background: white;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.sort-select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
-
-/* MODAL DE DETALHES MELHORADO */
-.details-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 2000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.details-modal.active {
-    display: flex;
-}
-
-.details-content {
-    background: white;
-    border-radius: 16px;
-    max-width: 900px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    animation: slideUp 0.4s ease;
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* CARROSSEL MELHORADO */
-.image-carousel {
-    position: relative;
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
-    border-radius: 16px 16px 0 0;
-}
-
-@media (max-width: 768px) {
-    .image-carousel {
-        height: 300px;
-    }
-}
-
-.carousel-images {
-    display: flex;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    height: 100%;
-}
-
-.carousel-image {
-    min-width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.carousel-controls {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-    padding: 0 20px;
-    pointer-events: none;
-}
-
-.carousel-btn {
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-    pointer-events: all;
-}
-
-.carousel-btn:hover {
-    background: rgba(0, 0, 0, 0.9);
-    transform: scale(1.1);
-}
-
-.carousel-indicators {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-}
-
-.carousel-indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.6);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: var(--transition);
-}
-
-.carousel-indicator.active {
-    background: white;
-    transform: scale(1.3);
-}
-
-.image-thumbnails {
-    display: flex;
-    gap: 10px;
-    margin: 15px;
-    padding: 10px;
-    overflow-x: auto;
-    background: #f8f9fa;
-    border-radius: 10px;
-}
-
-.thumbnail {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: var(--transition);
-    flex-shrink: 0;
-}
-
-.thumbnail.active {
-    border-color: var(--primary-color);
-    transform: scale(1.05);
-}
-
-.thumbnail:hover {
-    opacity: 0.8;
-    border-color: var(--primary-color);
-}
-
-/* DETALHES DO PRODUTO */
-.product-details {
-    padding: 25px;
-}
-
-.product-details h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: var(--text-color);
-}
-
-.product-details-price {
-    font-size: 28px;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin: 15px 0;
-}
-
-.product-description {
-    color: #555;
-    line-height: 1.7;
-    margin: 20px 0;
-    font-size: 15px;
-}
-
-.product-specs {
-    margin: 20px 0;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 10px;
-}
-
-.product-specs h4 {
-    margin-bottom: 10px;
-    color: var(--text-color);
-}
-
-.specs-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-.spec-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-}
-
-.spec-item i {
-    color: var(--primary-color);
-}
-
-/* BOTÃO FECHAR MODAL */
-.close-modal {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 24px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: var(--transition);
-}
-
-.close-modal:hover {
-    background: rgba(0, 0, 0, 0.9);
-    transform: rotate(90deg);
-}
-
-/* CART MODAL MELHORADO */
-.cart-modal {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    max-width: 450px;
-    height: 100vh;
-    background: white;
-    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
-}
-
-.cart-modal.active {
-    right: 0;
-}
-
-.cart-header {
-    padding: 20px;
-    background: var(--primary-color);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cart-header h3 {
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.cart-close {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 28px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.cart-close:hover {
-    transform: scale(1.1);
-}
-
-.cart-items {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-}
-
-.empty-cart {
-    text-align: center;
-    padding: 40px 20px;
-    color: #666;
-}
-
-.empty-cart i {
-    font-size: 50px;
-    margin-bottom: 15px;
-    color: #ddd;
-}
-
-.cart-item {
-    display: flex;
-    gap: 15px;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-    align-items: center;
-}
-
-.cart-item:last-child {
-    border-bottom: none;
-}
-
-.cart-item-image {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 8px;
-    flex-shrink: 0;
-}
-
-.cart-item-details {
-    flex: 1;
-}
-
-.cart-item-name {
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 5px;
-    line-height: 1.4;
-}
-
-.cart-item-price {
-    font-weight: bold;
-    color: var(--primary-color);
-    font-size: 14px;
-}
-
-.cart-item-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 8px;
-}
-
-.quantity-control {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #f8f9fa;
-    padding: 4px 10px;
-    border-radius: 20px;
-}
-
-.quantity-btn {
-    width: 26px;
-    height: 26px;
-    border: none;
-    background: white;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: var(--transition);
-}
-
-.quantity-btn:hover {
-    background: var(--primary-color);
-    color: white;
-}
-
-.remove-item {
-    background: none;
-    border: none;
-    color: #e74c3c;
-    cursor: pointer;
-    font-size: 13px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: var(--transition);
-}
-
-.remove-item:hover {
-    background: #ffebee;
-}
-
-.cart-footer {
-    padding: 20px;
-    border-top: 2px solid #f0f0f0;
-    background: #fafafa;
-}
-
-.cart-summary {
-    margin-bottom: 20px;
-}
-
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: #555;
-}
-
-.summary-row.total {
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #eee;
-}
-
-.checkout-button {
-    width: 100%;
-    padding: 16px;
-    background: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius);
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.checkout-button:hover {
-    background: #1da851;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-}
-
-.clear-cart-btn {
-    width: 100%;
-    padding: 12px;
-    background: #95a5a6;
-    color: white;
-    border: none;
-    border-radius: var(--border-radius);
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 14px;
-    transition: var(--transition);
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.clear-cart-btn:hover {
-    background: #7f8c8d;
-}
-
-/* CHECKOUT MODAL MELHORADO */
-.checkout-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 2000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.checkout-modal.active {
-    display: flex;
-}
-
-.checkout-container {
-    background: white;
-    border-radius: 16px;
-    max-width: 500px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-}
-
-.checkout-header {
-    padding: 20px;
-    background: var(--primary-color);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 16px 16px 0 0;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
-
-.checkout-close {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 28px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.checkout-close:hover {
-    transform: scale(1.1);
-}
-
-.checkout-form {
-    padding: 25px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--text-color);
-    font-size: 14px;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 14px;
-    border: 2px solid #e0e0e0;
-    border-radius: var(--border-radius);
-    font-size: 14px;
-    transition: var(--transition);
-    background: white;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-.payment-methods,
-.delivery-options {
-    display: grid;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.payment-option,
-.delivery-option {
-    padding: 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: var(--transition);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.payment-option:hover,
-.delivery-option:hover {
-    border-color: var(--primary-color);
-}
-
-.payment-option.active,
-.delivery-option.active {
-    border-color: var(--accent-color);
-    background: rgba(37, 211, 102, 0.05);
-}
-
-.payment-icon {
-    font-size: 20px;
-}
-
-.order-summary {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: var(--border-radius);
-    margin: 20px 0;
-}
-
-.order-summary h4 {
-    margin-bottom: 15px;
-    color: var(--text-color);
-}
-
-.order-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 14px;
-}
-
-.order-total {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    font-size: 18px;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 2px solid #ddd;
-    color: var(--primary-color);
-}
-
-.submit-order-btn {
-    width: 100%;
-    padding: 16px;
-    background: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius);
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.submit-order-btn:hover {
-    background: #1da851;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-}
-
-/* NOTIFICAÇÃO MELHORADA */
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--primary-color);
-    color: white;
-    padding: 16px 24px;
-    border-radius: var(--border-radius);
-    z-index: 9999;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    animation: slideInRight 0.3s ease, slideOutRight 0.3s ease 2.7s;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    max-width: 350px;
-}
-
-@keyframes slideInRight {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes slideOutRight {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(100%); opacity: 0; }
-}
-
-.notification.success {
-    background: #27ae60;
-}
-
-.notification.error {
-    background: #e74c3c;
-}
-
-.notification.warning {
-    background: #f39c12;
-}
-
-.notification-icon {
-    font-size: 20px;
-}
-
-/* LOADING SPINNER */
-.spinner {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* FOOTER */
-footer {
-    background: var(--primary-color);
-    color: white;
-    padding: 40px 20px;
-    text-align: center;
-    margin-top: 50px;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-logo {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.footer-logo span {
-    color: var(--secondary-color);
-}
-
-.footer-text {
-    color: #bbb;
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 20px;
-    color: #999;
-    font-size: 14px;
-}
-
-/* RESPONSIVE ADJUSTMENTS */
-@media (max-width: 768px) {
-    header {
-        padding: 12px 16px;
-    }
-    
-    .logo {
-        font-size: 20px;
-    }
-    
-    .tabs {
-        gap: 8px;
-    }
-    
-    .tab {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-    
-    .product-card {
-        height: 340px;
-    }
-    
-    .product-image-container {
-        height: 160px;
-    }
-    
-    .product-name {
-        font-size: 13px;
-        height: 36px;
-    }
-    
-    .product-price {
-        font-size: 16px;
-    }
-    
-    .product-btn {
-        padding: 8px;
-        font-size: 12px;
-    }
-    
-    .details-content {
-        max-height: 95vh;
-    }
-    
-    .product-details {
-        padding: 20px;
-    }
-    
-    .product-details h2 {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .products-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .product-card {
-        height: 320px;
-    }
-    
-    .product-image-container {
-        height: 140px;
-    }
-    
-    .search-box {
-        min-width: 100%;
-    }
-    
-    .filters {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .cart-modal {
-        max-width: 100%;
-    }
-}
-
-/* SCROLLBAR CUSTOM */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jordan Store - Loja Oficial de Roupas e Tênis Jordan</title>
+    <meta name="description" content="Loja oficial de camisas, calças e tênis Jordan. Compre online com frete calculado por CEP e entrega para todo Brasil.">
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #e53935;
+            --accent-color: #25D366;
+            --light-gray: #f4f4f4;
+            --dark-gray: #333333;
+            --text-color: #222222;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* MENU HAMBURGER CORRIGIDO */
+        .hamburger-menu {
+            position: fixed;
+            top: 40px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--primary-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hamburger-menu:hover {
+            transform: scale(1.05);
+            background: var(--dark-gray);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background: white;
+            margin: 3px 0;
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .hamburger-menu:hover .hamburger-line {
+            background: #f0f0f0;
+        }
+
+        /* SIDEBAR MENU */
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 1002;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.15);
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-menu.active {
+            left: 0;
+        }
+
+        /* OVERLAY */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* HEADER DO SIDEBAR */
+        .sidebar-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 25px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-header h3 {
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .sidebar-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        /* CONTEÚDO DO SIDEBAR - SIMPLIFICADO */
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 25px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 16px;
+            border-left: 4px solid transparent;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover {
+            background: #f8f9fa;
+            border-left-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .sidebar-item.active {
+            background: #f0f0f0;
+            border-left-color: var(--secondary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .sidebar-icon {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* HEADER PRINCIPAL CORRIGIDO */
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 16px 24px 16px 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 998;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .logo-img {
+            height: 90px;
+            object-fit: contain;
+            max-width: 200px;
+        }
+
+        .cart-icon {
+            position: absolute;
+            right: 24px;
+            cursor: pointer;
+            font-size: 24px;
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .cart-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* BANNER */
+        .banner-container {
+            width: 110%;
+            overflow: hidden;
+            position: relative;
+            height: 500px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .banner-container {
+                height: 300px;
+            }
+        }
+
+        .banner-slide {
+            width: 110%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            object-fit: cover;
+        }
+
+        .banner-slide.active {
+            opacity: 1;
+        }
+
+        .banner-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .banner-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .banner-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* HOME SECTION */
+        .home-section {
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+
+        .home-intro {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+        }
+
+        .home-intro h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .home-intro p {
+            font-size: 18px;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* FEATURES GRID */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 220px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 70px;
+            height: 70px;
+            background: var(--light-gray);
+            border-radius: 50%;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        /* TABS DE CATEGORIAS */
+        .categories-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 40px 0 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 14px 28px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-color);
+        }
+
+        .tab-btn:hover {
+            background: #f8f9fa;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .tab-icon {
+            font-size: 20px;
+        }
+
+        /* FILTROS */
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .sort-select {
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* PRODUTOS */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 15px;
+            align-items: stretch;
+        }
+
+        /* PRODUCT CARD */
+        .product-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+            height: 400px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 15px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-name {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            line-height: 1.4;
+            height: 42px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        /* STOCK INFO */
+        .stock-info {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            flex-shrink: 0;
+        }
+
+        .stock-high {
+            background: #e8f6ef;
+            color: #27ae60;
+        }
+
+        .stock-medium {
+            background: #fef9e7;
+            color: #f39c12;
+        }
+
+        .stock-low {
+            background: #fdedec;
+            color: #e74c3c;
+        }
+
+        .stock-out {
+            background: #f2f3f4;
+            color: #7f8c8d;
+        }
+
+        /* PRODUCT BUTTONS */
+        .product-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+            padding-top: 10px;
+            flex-shrink: 0;
+        }
+
+        .product-btn {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13px;
+            transition: var(--transition);
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .buy-btn {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .buy-btn:hover {
+            background: var(--dark-gray);
+            transform: translateY(-2px);
+        }
+
+        .details-btn {
+            background: #f0f0f0;
+            color: var(--text-color);
+        }
+
+        .details-btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .disabled-btn {
+            background: #bdc3c7;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        /* MODAL DE DETALHES */
+        .details-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .details-modal.active {
+            display: flex;
+        }
+
+        .details-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* BOTÃO FECHAR MODAL */
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: rotate(90deg);
+        }
+
+        /* CART MODAL */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            background: white;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-modal.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .cart-close:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .empty-cart i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-image {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .cart-item-price {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8f9fa;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .quantity-btn {
+            width: 26px;
+            height: 26px;
+            border: none;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .remove-item:hover {
+            background: #ffebee;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 2px solid #f0f0f0;
+            background: #fafafa;
+        }
+
+        .cart-summary {
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .summary-row.total {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .checkout-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .checkout-button:hover {
+            background: #1da851;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .clear-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: #95a5a6;
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: var(--transition);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .clear-cart-btn:hover {
+            background: #7f8c8d;
+        }
+
+        /* CHECKOUT MODAL */
+        .checkout-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .checkout-modal.active {
+            display: flex;
+        }
+
+        .checkout-container {
+            background: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .checkout-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 16px 16px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .checkout-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checkout-close:hover {
+            transform: scale(1.1);
+        }
+
+        .checkout-form {
+            padding: 25px;
+        }
+
+        .checkout-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .checkout-form .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+        .checkout-form .form-group input,
+        .checkout-form .form-group textarea,
+        .checkout-form .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .checkout-form .form-group input:focus,
+        .checkout-form .form-group textarea:focus,
+        .checkout-form .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkout-form .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* SISTEMA DE CEP - CORREIOS */
+        .cep-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .cep-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+        }
+        
+        .cep-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .calculate-frete-btn {
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        
+        .calculate-frete-btn:hover {
+            background: var(--dark-gray);
+        }
+        
+        .calculate-frete-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .frete-loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+        
+        .frete-options {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border: 2px solid #e0e0e0;
+        }
+        
+        .frete-option {
+            padding: 12px;
+            margin-bottom: 8px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .frete-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(0, 0, 0, 0.02);
+        }
+        
+        .frete-option.selected {
+            border-color: var(--accent-color);
+            background: rgba(37, 211, 102, 0.05);
+        }
+        
+        .frete-option.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .frete-details {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .cep-error {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .cep-success {
+            color: #27ae60;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .cep-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #e8f6ef;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .change-cep-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: underline;
+        }
+
+        /* MODAL DE CEP */
+        .cep-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2001;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .cep-modal.active {
+            display: flex;
+        }
+        
+        .cep-modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 100%;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .cep-modal-content h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .cep-modal-content p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .payment-option {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .payment-option.active {
+            border-color: var(--accent-color);
+            background: rgba(37, 211, 102, 0.05);
+        }
+
+        .payment-icon {
+            font-size: 20px;
+            min-width: 24px;
+        }
+
+        .order-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+
+        .order-summary h4 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px solid #ddd;
+            color: var(--primary-color);
+        }
+
+        .submit-order-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .submit-order-btn:hover {
+            background: #1da851;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .submit-order-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* NOTIFICAÇÃO */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 16px 24px;
+            border-radius: var(--border-radius);
+            z-index: 9999;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            animation: slideInRight 0.3s ease, slideOutRight 0.3s ease 2.7s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 350px;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .notification.success {
+            background: #27ae60;
+        }
+
+        .notification.error {
+            background: #e74c3c;
+        }
+
+        .notification.warning {
+            background: #f39c12;
+        }
+
+        .notification-icon {
+            font-size: 20px;
+        }
+
+        /* LOADING SPINNER */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+
+        .footer-text {
+            color: #bbb;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 16px 12px 70px;
+            }
+
+            .logo-img {
+                height: 35px;
+                max-width: 180px;
+            }
+
+            .hamburger-menu {
+                top: 6px;
+                left: 15px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .cart-icon {
+                right: 16px;
+            }
+
+            .sidebar-menu {
+                width: 280px;
+            }
+
+            .banner-container {
+                height: 300px;
+            }
+
+            .home-intro h1 {
+                font-size: 28px;
+            }
+
+            .home-intro p {
+                font-size: 16px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* TABS PARA MOBILE */
+            .categories-tabs {
+                gap: 8px;
+                margin: 30px 0 20px;
+            }
+
+            .tab-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            /* MELHORIAS PARA PRODUCT CARD NO MOBILE */
+            .product-card {
+                height: auto;
+                min-height: 380px;
+            }
+            
+            .product-image-container {
+                height: 180px;
+            }
+            
+            .product-name {
+                font-size: 14px;
+                height: 36px;
+                -webkit-line-clamp: 2;
+            }
+            
+            .product-price {
+                font-size: 16px;
+                margin-bottom: 6px;
+            }
+            
+            .stock-info {
+                font-size: 10px;
+                padding: 3px 8px;
+                margin-bottom: 10px;
+            }
+            
+            .product-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .product-btn {
+                font-size: 12px;
+                padding: 8px;
+                min-height: 36px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+                gap: 22px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                gap: 18px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .search-box {
+                min-width: 100%;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cart-modal {
+                max-width: 100%;
+            }
+
+            .sidebar-menu {
+                width: 100%;
+                left: -100%;
+            }
+
+            .banner-container {
+                height: 200px;
+            }
+
+            .feature-card {
+                padding: 20px 15px;
+                min-height: 200px;
+            }
+
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
+            }
+
+            /* TABS PARA MOBILE PEQUENO */
+            .categories-tabs {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                justify-content: flex-start;
+                white-space: nowrap;
+            }
+
+            .tab-btn {
+                flex-shrink: 0;
+                padding: 10px 16px;
+            }
+
+            .cep-form {
+                flex-direction: column;
+            }
+
+            /* MELHORIAS ADICIONAIS PARA MOBILE PEQUENO */
+            .product-card {
+                min-height: 340px;
+            }
+            
+            .product-image-container {
+                height: 150px;
+            }
+            
+            .product-info {
+                padding: 12px;
+            }
+            
+            .product-name {
+                font-size: 13px;
+                height: 32px;
+                margin-bottom: 6px;
+            }
+            
+            .product-price {
+                font-size: 15px;
+            }
+            
+            .product-badge {
+                font-size: 9px;
+                padding: 3px 8px;
+                top: 8px;
+                right: 8px;
+            }
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
 </head>
-
 <body>
-
-<header>
-    <div class="logo-container">
-        <div class="logo">Jordan<span>Wear</span>Store</div>
+    <!-- MENU HAMBURGER -->
+    <div class="hamburger-menu" onclick="toggleSidebar()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
     </div>
-    <div class="cart-icon" onclick="toggleCart()" title="Abrir carrinho">
-        🛒
-        <span class="cart-count">0</span>
-    </div>
-</header>
 
-<!-- BANNER MELHORADO -->
-<div class="banner-container">
-    <img src="https://i.pinimg.com/736x/82/21/f4/8221f40a9e4e84aec32443e0130f5cc6.jpg" class="banner-slide active" alt="Coleção Jordan 2024">
-    <img src="https://i.pinimg.com/736x/47/9c/46/479c46d2e3a13214638a3d80d9ef2cd3.jpg" class="banner-slide" alt="Nova Coleção de Camisas">
-    <img src="https://i.pinimg.com/736x/55/e8/60/55e8602476052c3b9e3383840c3b3741.jpg" class="banner-slide" alt="Promoção Especial">
-    <div class="banner-dots">
-        <button class="banner-dot active" onclick="goToBannerSlide(0)"></button>
-        <button class="banner-dot" onclick="goToBannerSlide(1)"></button>
-        <button class="banner-dot" onclick="goToBannerSlide(2)"></button>
-    </div>
-</div>
+    <!-- OVERLAY DO SIDEBAR -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-<!-- FILTROS E TABS -->
-<div class="tabs-container">
-    <div class="filters">
-        <div class="search-box">
-            <div class="search-icon">🔍</div>
-            <input type="text" class="search-input" id="searchInput" placeholder="Buscar produtos..." oninput="searchProducts()">
+    <!-- SIDEBAR MENU SIMPLIFICADO -->
+    <div class="sidebar-menu" id="sidebarMenu">
+        <div class="sidebar-header">
+            <h3>🏀 Jordan Store</h3>
+            <button class="sidebar-close" onclick="toggleSidebar()">×</button>
         </div>
-        <select class="sort-select" id="sortSelect" onchange="sortProducts()">
-            <option value="default">Ordenar por: Padrão</option>
-            <option value="price-asc">Preço: Menor para Maior</option>
-            <option value="price-desc">Preço: Maior para Menor</option>
-            <option value="name-asc">Nome: A-Z</option>
-            <option value="stock">Mais em Estoque</option>
-        </select>
-    </div>
-    
-    <div class="tabs">
-        <div class="tab active" onclick="showTab('camisas')">👕 Camisas</div>
-        <div class="tab" onclick="showTab('calcas')">👖 Calças</div>
-    </div>
-</div>
-
-<!-- SEÇÃO DE CAMISAS -->
-<section class="section" id="camisas">
-    <div class="products-grid" id="camisasProducts">
-        <!-- Produtos serão carregados via JavaScript -->
-    </div>
-</section>
-
-<!-- SEÇÃO DE CALÇAS -->
-<section class="section hidden" id="calcas">
-    <div class="products-grid" id="calcasProducts">
-        <!-- Produtos serão carregados via JavaScript -->
-    </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-    <div class="footer-content">
-        <div class="footer-logo">Jordan<span>Wear</span>Store</div>
-        <p class="footer-text">Loja oficial de roupas Jordan. Oferecemos as melhores camisas e calças com qualidade premium e estilo inigualável.</p>
-        <div class="footer-bottom">
-            &copy; 2024 JordanWearStore. Todos os direitos reservados.
+        <div class="sidebar-content">
+            <nav class="sidebar-nav">
+                <a class="sidebar-item active" onclick="filterByCategory('all'); toggleSidebar();">
+                    <span class="sidebar-icon">🏠</span>
+                    <span>Início</span>
+                </a>
+                <a class="sidebar-item" onclick="filterByCategory('camisas'); toggleSidebar();">
+                    <span class="sidebar-icon">👕</span>
+                    <span>Camisas</span>
+                </a>
+                <a class="sidebar-item" onclick="filterByCategory('calcas'); toggleSidebar();">
+                    <span class="sidebar-icon">👖</span>
+                    <span>Calças</span>
+                </a>
+                <a class="sidebar-item" onclick="filterByCategory('tenis'); toggleSidebar();">
+                    <span class="sidebar-icon">👟</span>
+                    <span>Tênis</span>
+                </a>
+            </nav>
         </div>
     </div>
-</footer>
 
-<!-- MODAL DE DETALHES -->
-<div class="details-modal" id="detailsModal">
-    <!-- Conteúdo será preenchido pelo JavaScript -->
-</div>
-
-<!-- CARRINHO -->
-<div class="cart-modal" id="cartModal">
-    <div class="cart-header">
-        <h3>🛒 Meu Carrinho</h3>
-        <button class="cart-close" onclick="toggleCart()">×</button>
-    </div>
-    <div class="cart-items" id="cartItems">
-        <div class="empty-cart">
-            <div>🛍️</div>
-            <p>Seu carrinho está vazio</p>
-            <p style="font-size: 14px; margin-top: 10px;">Adicione produtos para continuar</p>
+    <!-- HEADER PRINCIPAL -->
+    <header>
+        <div class="logo-container">
+            <img src="https://i.pinimg.com/736x/97/20/a6/9720a60b3796f5660a5e12c771775a02.jpg" alt="Jordan Store" class="logo-img">
         </div>
-    </div>
-    <div class="cart-footer">
-        <div class="cart-summary" id="cartSummary" style="display: none;">
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <span id="cartSubtotal">R$ 0,00</span>
-            </div>
-            <div class="summary-row">
-                <span>Frete</span>
-                <span id="cartShipping">R$ 9,90</span>
-            </div>
-            <div class="summary-row total">
-                <span>Total</span>
-                <span id="cartTotal">R$ 0,00</span>
+        <div class="cart-icon" onclick="toggleCart()" title="Abrir carrinho">
+            🛒
+            <span class="cart-count">0</span>
+        </div>
+    </header>
+
+    <!-- HOME SECTION -->
+    <section class="home-section" id="homeSection">
+        <div class="home-intro">
+            <h1>Bem-vindo à Jordan Store</h1>
+            <p>Nosso intuito não é apenas ser mais uma loja, é poder fazer com que a rapaziada que sempre sonhou em ter aquele kit que almeja, possa adquiri-lo, mesmo não havendo uma condição tão dahora.</p>
+        </div>
+
+        <!-- BANNER -->
+        <div class="banner-container">
+            <img src="https://i.pinimg.com/736x/82/21/f4/8221f40a9e4e84aec32443e0130f5cc6.jpg" class="banner-slide active" alt="Coleção Jordan 2024">
+            <img src="https://i.pinimg.com/736x/47/9c/46/479c46d2e3a13214638a3d80d9ef2cd3.jpg" class="banner-slide" alt="Nova Coleção de Camisas">
+            <img src="https://i.pinimg.com/736x/55/e8/60/55e8602476052c3b9e3383840c3b3741.jpg" class="banner-slide" alt="Promoção Especial">
+            <div class="banner-dots">
+                <button class="banner-dot active" onclick="goToBannerSlide(0)"></button>
+                <button class="banner-dot" onclick="goToBannerSlide(1)"></button>
+                <button class="banner-dot" onclick="goToBannerSlide(2)"></button>
             </div>
         </div>
-        <button class="checkout-button" onclick="openCheckout()" id="checkoutBtn" style="display: none;">
-            📱 Finalizar Pedido
-        </button>
-        <button class="clear-cart-btn" onclick="clearCart()" id="clearCartBtn" style="display: none;">
-            🗑️ Limpar Carrinho
-        </button>
-    </div>
-</div>
 
-<!-- MODAL DE CHECKOUT -->
-<div class="checkout-modal" id="checkoutModal">
-    <div class="checkout-container">
-        <div class="checkout-header">
-            <h3>📋 Finalizar Pedido</h3>
-            <button class="checkout-close" onclick="closeCheckout()">×</button>
+        <!-- FEATURES -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
+                <h3>Envio Rápido!</h3>
+                <p>Realizamos o envio do seu produto em até 24hrs!</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Formas de Pagamentos</h3>
+                <p>Somente Pix.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Compra segura</h3>
+                <p>Compra 100% segura e seus dados protegidos.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">↩️</div>
+                <h3>Trocas e Devoluções</h3>
+                <p>Não realizamos trocas, e nem Devoluções.</p>
+            </div>
         </div>
-        <div class="checkout-form" id="checkoutForm"></div>
+
+        <!-- TABS DE CATEGORIAS -->
+        <div class="categories-tabs" id="categoryTabs">
+            <button class="tab-btn active" onclick="filterByCategory('all')">
+                <span class="tab-icon">🏠</span>
+                <span>Todos</span>
+            </button>
+            <button class="tab-btn" onclick="filterByCategory('camisas')">
+                <span class="tab-icon">👕</span>
+                <span>Camisas</span>
+            </button>
+            <button class="tab-btn" onclick="filterByCategory('calcas')">
+                <span class="tab-icon">👖</span>
+                <span>Calças</span>
+            </button>
+            <button class="tab-btn" onclick="filterByCategory('tenis')">
+                <span class="tab-icon">👟</span>
+                <span>Tênis</span>
+            </button>
+        </div>
+
+        <!-- FILTROS E PRODUTOS -->
+        <div class="filters">
+            <div class="search-box">
+                <div class="search-icon">🔍</div>
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar produtos..." oninput="searchProducts()">
+            </div>
+            <select class="sort-select" id="sortSelect" onchange="sortProducts()">
+                <option value="default">Ordenar por: Padrão</option>
+                <option value="price-asc">Preço: Menor para Maior</option>
+                <option value="price-desc">Preço: Maior para Menor</option>
+                <option value="name-asc">Nome: A-Z</option>
+                <option value="stock">Mais em Estoque</option>
+            </select>
+        </div>
+
+        <!-- PRODUTOS -->
+        <div class="products-grid" id="allProducts">
+            <!-- Produtos serão carregados via JavaScript -->
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Jordan<span>Store</span></div>
+            <p class="footer-text">Loja oficial de roupas e tênis Jordan. Oferecemos as melhores camisas, calças e tênis com qualidade premium e estilo inigualável. Entrega para todo Brasil.</p>
+            <div class="footer-bottom">
+                &copy; 2024 Jordan Store. Todos os direitos reservados. | 📱 WhatsApp: (51) 8187-5780
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE DETALHES -->
+    <div class="details-modal" id="detailsModal"></div>
+
+    <!-- CARRINHO -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>🛒 Meu Carrinho</h3>
+            <button class="cart-close" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <div>🛍️</div>
+                <p>Seu carrinho está vazio</p>
+                <p style="font-size: 14px; margin-top: 10px;">Adicione produtos para continuar</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary" id="cartSummary" style="display: none;">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal">R$ 0,00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Frete</span>
+                    <span id="cartShipping">R$ 9,90</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span id="cartTotal">R$ 0,00</span>
+                </div>
+            </div>
+            <button class="checkout-button" onclick="openCheckout()" id="checkoutBtn" style="display: none;">
+                📱 Finalizar Pedido
+            </button>
+            <button class="clear-cart-btn" onclick="clearCart()" id="clearCartBtn" style="display: none;">
+                🗑️ Limpar Carrinho
+            </button>
+        </div>
     </div>
-</div>
 
-<script>
-// ============================================
-// DADOS DOS PRODUTOS (37 PRODUTOS)
-// ============================================
+    <!-- MODAL DE CHECKOUT -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-container">
+            <div class="checkout-header">
+                <h3>📋 Finalizar Pedido</h3>
+                <button class="checkout-close" onclick="closeCheckout()">×</button>
+            </div>
+            <div class="checkout-form" id="checkoutForm"></div>
+        </div>
+    </div>
 
-const produtos = [
-    // ======================================
-    // CAMISAS - 18 PRODUTOS
-    // ======================================
-    {
-        id: 'camisa1',
-        nome: 'Camisa Jordan Air Classic',
-        categoria: 'camisas',
-        preco: 299.9,
-        estoque: 25,
-        imagem: 'https://images.unsplash.com/photo-1594032194509-0056023973b2?w=300&h=300&fit=crop',
-        imagens: [
-            'https://images.unsplash.com/photo-1594032194509-0056023973b2?w=300&h=300&fit=crop',
-            'https://images.unsplash.com/photo-1594032194509-0056023973b2?w=300&h=300&fit=crop'
-        ],
-        descricao: 'piroca jordan'
-    },
-    {
-        id: 'camisa2',
-        nome: 'Camisa Jordan Retro 23',
-        categoria: 'camisas',
-        preco: 289.9,
-        estoque: 2,
-        imagem: 'https://images.unsplash.com/photo-1516826957135-700dedea698c?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Design retrô inspirado nos anos 90 com logo bordado'
-    },
-    {
-        id: 'camisa3',
-        nome: 'Camisa Jordan Performance',
-        categoria: 'camisas',
-        preco: 329.9,
-        estoque: 12,
-        imagem: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Tecnologia de alta performance para atividades esportivas'
-    },
-    {
-        id: 'camisa4',
-        nome: 'Camisa Jordan Signature',
-        categoria: 'camisas',
-        preco: 349.9,
-        estoque: 8,
-        imagem: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Edição especial com assinatura bordada e detalhes premium'
-    },
-    {
-        id: 'camisa5',
-        nome: 'Camisa Jordan Street Style',
-        categoria: 'camisas',
-        preco: 269.9,
-        estoque: 15,
-        imagem: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Estilo urbano com design moderno e conforto máximo'
-    },
-    {
-        id: 'camisa6',
-        nome: 'Camisa Jordan Essentials',
-        categoria: 'camisas',
-        preco: 199.9,
-        estoque: 30,
-        imagem: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Básica essencial para o dia a dia, super confortável'
-    },
-    {
-        id: 'camisa7',
-        nome: 'Camisa Jordan Pro Elite',
-        categoria: 'camisas',
-        preco: 379.9,
-        estoque: 5,
-        imagem: 'https://images.unsplash.com/photo-1594032194509-0056023973b2?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Linha profissional com materiais de alta qualidade'
-    },
-    {
-        id: 'camisa8',
-        nome: 'Camisa Jordan Night Game',
-        categoria: 'camisas',
-        preco: 319.9,
-        estoque: 22,
-        imagem: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Design elegante para jogos noturnos e eventos especiais'
-    },
-    {
-        id: 'camisa9',
-        nome: 'Camisa Jordan Summer Edition',
-        categoria: 'camisas',
-        preco: 239.9,
-        estoque: 14,
-        imagem: 'https://images.unsplash.com/photo-1544441893-675973e31985?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Edição verão com tecido leve e respirabilidade máxima'
-    },
-    {
-        id: 'camisa10',
-        nome: 'Camisa Jordan Limited Edition',
-        categoria: 'camisas',
-        preco: 459.9,
-        estoque: 3,
-        imagem: 'https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Edição limitada numerada, apenas 100 unidades produzidas'
-    },
-    {
-        id: 'camisa11',
-        nome: 'Camisa Jordan Air Max Pro',
-        categoria: 'camisas',
-        preco: 329.9,
-        estoque: 20,
-        imagem: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Tecnologia Air Max para máximo conforto e estilo'
-    },
-    {
-        id: 'camisa12',
-        nome: 'Camisa Jordan Urban Flex',
-        categoria: 'camisas',
-        preco: 279.9,
-        estoque: 16,
-        imagem: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Flexibilidade urbana com design contemporâneo'
-    },
-    {
-        id: 'camisa13',
-        nome: 'Camisa Jordan Court Vision',
-        categoria: 'camisas',
-        preco: 299.9,
-        estoque: 11,
-        imagem: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Inspirada nas quadras com estilo esportivo moderno'
-    },
-    {
-        id: 'camisa14',
-        nome: 'Camisa Jordan Heritage',
-        categoria: 'camisas',
-        preco: 349.9,
-        estoque: 7,
-        imagem: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Herança Jordan com detalhes clássicos e modernos'
-    },
-    {
-        id: 'camisa15',
-        nome: 'Camisa Jordan Bounce',
-        categoria: 'camisas',
-        preco: 269.9,
-        estoque: 19,
-        imagem: 'https://images.unsplash.com/photo-1594032194509-0056023973b2?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Tecnologia Bounce para liberdade de movimento'
-    },
-    {
-        id: 'camisa16',
-        nome: 'Camisa Jordan React',
-        categoria: 'camisas',
-        preco: 389.9,
-        estoque: 9,
-        imagem: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Conforto React com resposta energética premium'
-    },
-    {
-        id: 'camisa17',
-        nome: 'Camisa Jordan Zoom',
-        categoria: 'camisas',
-        preco: 319.9,
-        estoque: 13,
-        imagem: 'https://images.unsplash.com/photo-1544441893-675973e31985?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Tecnologia Zoom para velocidade e agilidade'
-    },
-    {
-        id: 'camisa18',
-        nome: 'Camisa Jordan FlyEase',
-        categoria: 'camisas',
-        preco: 279.9,
-        estoque: 21,
-        imagem: 'https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Sistema FlyEase para fácil uso e máximo conforto'
-    },
-    
-    // ======================================
-    // CALÇAS - 18 PRODUTOS
-    // ======================================
-    {
-        id: 'calca1',
-        nome: 'Calça Jeans Jordan Classic',
-        categoria: 'calcas',
-        preco: 389.9,
-        estoque: 20,
-        imagem: 'https://images.unsplash.com/photo-1581349488280-6f2a3eb2a1f2?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Jeans clássico com elastano para máximo conforto'
-    },
-    {
-        id: 'calca2',
-        nome: 'Calça Cargo Jordan Utility',
-        categoria: 'calcas',
-        preco: 329.9,
-        estoque: 15,
-        imagem: 'https://images.unsplash.com/photo-1593032465171-72c54d44c0a6?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Cargo prática com múltiplos bolsos e design utilitário'
-    },
-    {
-        id: 'calca3',
-        nome: 'Calça Moletom Jordan Comfort',
-        categoria: 'calcas',
-        preco: 279.9,
-        estoque: 25,
-        imagem: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Moletom ultra confortável para relaxar em estilo'
-    },
-    {
-        id: 'calca4',
-        nome: 'Calça Chino Jordan Executive',
-        categoria: 'calcas',
-        preco: 349.9,
-        estoque: 18,
-        imagem: 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Chino executivo para ocasiões formais e casuais'
-    },
-    {
-        id: 'calca5',
-        nome: 'Calça Jogger Jordan Sport',
-        categoria: 'calcas',
-        preco: 299.9,
-        estoque: 22,
-        imagem: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Jogger esportiva com ajuste perfeito e mobilidade'
-    },
-    {
-        id: 'calca6',
-        nome: 'Calça Social Jordan Premium',
-        categoria: 'calcas',
-        preco: 429.9,
-        estoque: 10,
-        imagem: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Social premium com corte italiano e tecido de alta qualidade'
-    },
-    {
-        id: 'calca7',
-        nome: 'Calça Tactel Jordan Performance',
-        categoria: 'calcas',
-        preco: 319.9,
-        estoque: 12,
-        imagem: 'https://images.unsplash.com/photo-1475178626620-a4d074967452?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Tactel de performance para atividades físicas intensas'
-    },
-    {
-        id: 'calca8',
-        nome: 'Calça Wide Leg Jordan',
-        categoria: 'calcas',
-        preco: 369.9,
-        estoque: 8,
-        imagem: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Wide leg fashion com corte moderno e tendência streetwear'
-    },
-    {
-        id: 'calca9',
-        nome: 'Calça Linho Jordan Summer',
-        categoria: 'calcas',
-        preco: 289.9,
-        estoque: 16,
-        imagem: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Linho leve e respirável para os dias mais quentes'
-    },
-    {
-        id: 'calca10',
-        nome: 'Calça Couro Jordan Urban',
-        categoria: 'calcas',
-        preco: 599.9,
-        estoque: 1,
-        imagem: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Couro legítimo com design urbano e estilo ousado'
-    },
-    {
-        id: 'calca11',
-        nome: 'Calça Sarja Jordan Slim',
-        categoria: 'calcas',
-        preco: 339.9,
-        estoque: 17,
-        imagem: 'https://images.unsplash.com/photo-1581349488280-6f2a3eb2a1f2?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Sarja slim fit com corte moderno e ajuste perfeito'
-    },
-    {
-        id: 'calca12',
-        nome: 'Calça Tactel Jordan Active',
-        categoria: 'calcas',
-        preco: 299.9,
-        estoque: 14,
-        imagem: 'https://images.unsplash.com/photo-1593032465171-72c54d44c0a6?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Tactel para atividades físicas com máxima liberdade'
-    },
-    {
-        id: 'calca13',
-        nome: 'Calça Moletom Jordan Tech',
-        categoria: 'calcas',
-        preco: 319.9,
-        estoque: 11,
-        imagem: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Moletom tech fleece com tecnologia térmica avançada'
-    },
-    {
-        id: 'calca14',
-        nome: 'Calça Jeans Jordan Skinny',
-        categoria: 'calcas',
-        preco: 379.9,
-        estoque: 9,
-        imagem: 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Jeans skinny fit com elastano e corte moderno'
-    },
-    {
-        id: 'calca15',
-        nome: 'Calça Cargo Jordan Military',
-        categoria: 'calcas',
-        preco: 349.9,
-        estoque: 13,
-        imagem: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Cargo estilo militar com múltiplos bolsos funcionais'
-    },
-    {
-        id: 'calca16',
-        nome: 'Calça Sarja Jordan Regular',
-        categoria: 'calcas',
-        preco: 289.9,
-        estoque: 19,
-        imagem: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Sarja regular fit para uso casual e confortável'
-    },
-    {
-        id: 'calca17',
-        nome: 'Calça Tactel Jordan Pro',
-        categoria: 'calcas',
-        preco: 359.9,
-        estoque: 7,
-        imagem: 'https://images.unsplash.com/photo-1475178626620-a4d074967452?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Tactel profissional para alto rendimento esportivo'
-    },
-    {
-        id: 'calca18',
-        nome: 'Calça Jeans Jordan Relaxed',
-        categoria: 'calcas',
-        preco: 329.9,
-        estoque: 15,
-        imagem: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300&h=300&fit=crop',
-        imagens: [],
-        descricao: 'Jeans relaxed fit para máximo conforto no dia a dia'
-    }
-];
+    <!-- MODAL DE CEP -->
+    <div class="cep-modal" id="cepModal"></div>
 
-// ============================================
-// VARIÁVEIS GLOBAIS
-// ============================================
+    <script>
+        // ============================================
+        // DADOS DOS PRODUTOS (54 PRODUTOS - 18 camisas, 18 calças, 18 tênis)
+        // ============================================
+        const produtos = [
+            // CAMISAS (18 produtos)
+            { id: 'camisa1', nome: 'Camisa Jordan Air Classic', categoria: 'camisas', preco: 299.9, estoque: 25, imagem: 'https://images.unsplash.com/photo-1594032194509-0056023973b2?w=300&h=300&fit=crop', descricao: 'Camisa clássica da linha Air Jordan com tecido premium e design icônico' },
+            { id: 'camisa2', nome: 'Camisa Jordan Retro 23', categoria: 'camisas', preco: 289.9, estoque: 2, imagem: 'https://images.unsplash.com/photo-1516826957135-700dedea698c?w=300&h=300&fit=crop', descricao: 'Design retrô inspirado nos anos 90 com logo bordado' },
+            { id: 'camisa3', nome: 'Camisa Jordan Performance', categoria: 'camisas', preco: 329.9, estoque: 12, imagem: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=300&h=300&fit=crop', descricao: 'Tecnologia de alta performance para atividades esportivas' },
+            { id: 'camisa4', nome: 'Camisa Jordan Signature', categoria: 'camisas', preco: 349.9, estoque: 8, imagem: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=300&h=300&fit=crop', descricao: 'Edição especial com assinatura bordada e detalhes premium' },
+            { id: 'camisa5', nome: 'Camisa Jordan Street Style', categoria: 'camisas', preco: 269.9, estoque: 15, imagem: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622?w=300&h=300&fit=crop', descricao: 'Estilo urbano com design moderno e conforto máximo' },
+            { id: 'camisa6', nome: 'Camisa Jordan Essentials', categoria: 'camisas', preco: 199.9, estoque: 30, imagem: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=300&h=300&fit=crop', descricao: 'Básica essencial para o dia a dia, super confortável' },
+            { id: 'camisa7', nome: 'Camisa Jordan Pro Elite', categoria: 'camisas', preco: 379.9, estoque: 5, imagem: 'https://images.unsplash.com/photo-1594032194509-0056023973b2?w=300&h=300&fit=crop', descricao: 'Linha profissional com materiais de alta qualidade' },
+            { id: 'camisa8', nome: 'Camisa Jordan Night Game', categoria: 'camisas', preco: 319.9, estoque: 22, imagem: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=300&h=300&fit=crop', descricao: 'Design elegante para jogos noturnos e eventos especiais' },
+            { id: 'camisa9', nome: 'Camisa Jordan Summer Edition', categoria: 'camisas', preco: 239.9, estoque: 14, imagem: 'https://images.unsplash.com/photo-1544441893-675973e31985?w=300&h=300&fit=crop', descricao: 'Edição verão com tecido leve e respirabilidade máxima' },
+            { id: 'camisa10', nome: 'Camisa Jordan Limited Edition', categoria: 'camisas', preco: 459.9, estoque: 3, imagem: 'https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=300&h=300&fit=crop', descricao: 'Edição limitada numerada, apenas 100 unidades produzidas' },
+            { id: 'camisa11', nome: 'Camisa Jordan Air Max Pro', categoria: 'camisas', preco: 329.9, estoque: 20, imagem: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=300&fit=crop', descricao: 'Tecnologia Air Max para máximo conforto e estilo' },
+            { id: 'camisa12', nome: 'Camisa Jordan Urban Flex', categoria: 'camisas', preco: 279.9, estoque: 16, imagem: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=300&h=300&fit=crop', descricao: 'Flexibilidade urbana com design contemporâneo' },
+            { id: 'camisa13', nome: 'Camisa Jordan Court Vision', categoria: 'camisas', preco: 299.9, estoque: 11, imagem: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=300&h=300&fit=crop', descricao: 'Inspirada nas quadras com estilo esportivo moderno' },
+            { id: 'camisa14', nome: 'Camisa Jordan Heritage', categoria: 'camisas', preco: 349.9, estoque: 7, imagem: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=300&h=300&fit=crop', descricao: 'Herança Jordan com detalhes clássicos e modernos' },
+            { id: 'camisa15', nome: 'Camisa Jordan Bounce', categoria: 'camisas', preco: 269.9, estoque: 19, imagem: 'https://images.unsplash.com/photo-1594032194509-0056023973b2?w=300&h=300&fit=crop', descricao: 'Tecnologia Bounce para liberdade de movimento' },
+            { id: 'camisa16', nome: 'Camisa Jordan React', categoria: 'camisas', preco: 389.9, estoque: 9, imagem: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=300&h=300&fit=crop', descricao: 'Conforto React com resposta energética premium' },
+            { id: 'camisa17', nome: 'Camisa Jordan Zoom', categoria: 'camisas', preco: 319.9, estoque: 13, imagem: 'https://images.unsplash.com/photo-1544441893-675973e31985?w=300&h=300&fit=crop', descricao: 'Tecnologia Zoom para velocidade e agilidade' },
+            { id: 'camisa18', nome: 'Camisa Jordan FlyEase', categoria: 'camisas', preco: 279.9, estoque: 21, imagem: 'https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=300&h=300&fit=crop', descricao: 'Sistema FlyEase para fácil uso e máximo conforto' },
 
-let carrinho = [];
-let clienteInfo = {
-    nome: '', telefone: '', email: '', endereco: '',
-    pagamento: 'pix', entrega: 'padrao', observacoes: ''
-};
+            // CALÇAS (18 produtos)
+            { id: 'calca1', nome: 'Calça Jeans Jordan Classic', categoria: 'calcas', preco: 389.9, estoque: 20, imagem: 'https://images.unsplash.com/photo-1581349488280-6f2a3eb2a1f2?w=300&h=300&fit=crop', descricao: 'Jeans clássico com elastano para máximo conforto' },
+            { id: 'calca2', nome: 'Calça Cargo Jordan Utility', categoria: 'calcas', preco: 329.9, estoque: 15, imagem: 'https://images.unsplash.com/photo-1593032465171-72c54d44c0a6?w=300&h=300&fit=crop', descricao: 'Cargo prática com múltiplos bolsos e design utilitário' },
+            { id: 'calca3', nome: 'Calça Moletom Jordan Comfort', categoria: 'calcas', preco: 279.9, estoque: 25, imagem: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=300&h=300&fit=crop', descricao: 'Moletom ultra confortável para relaxar em estilo' },
+            { id: 'calca4', nome: 'Calça Chino Jordan Executive', categoria: 'calcas', preco: 349.9, estoque: 18, imagem: 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=300&h=300&fit=crop', descricao: 'Chino executivo para ocasiões formais e casuais' },
+            { id: 'calca5', nome: 'Calça Jogger Jordan Sport', categoria: 'calcas', preco: 299.9, estoque: 22, imagem: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=300&h=300&fit=crop', descricao: 'Jogger esportiva com ajuste perfeito e mobilidade' },
+            { id: 'calca6', nome: 'Calça Social Jordan Premium', categoria: 'calcas', preco: 429.9, estoque: 10, imagem: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=300&h=300&fit=crop', descricao: 'Social premium com corte italiano e tecido de alta qualidade' },
+            { id: 'calca7', nome: 'Calça Tactel Jordan Performance', categoria: 'calcas', preco: 319.9, estoque: 12, imagem: 'https://images.unsplash.com/photo-1475178626620-a4d074967452?w=300&h=300&fit=crop', descricao: 'Tactel de performance para atividades físicas intensas' },
+            { id: 'calca8', nome: 'Calça Wide Leg Jordan', categoria: 'calcas', preco: 369.9, estoque: 8, imagem: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300&h=300&fit=crop', descricao: 'Wide leg fashion com corte moderno e tendência streetwear' },
+            { id: 'calca9', nome: 'Calça Linho Jordan Summer', categoria: 'calcas', preco: 289.9, estoque: 16, imagem: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=300&h=300&fit=crop', descricao: 'Linno leve e respirável para os dias mais quentes' },
+            { id: 'calca10', nome: 'Calça Couro Jordan Urban', categoria: 'calcas', preco: 599.9, estoque: 1, imagem: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=300&h=300&fit=crop', descricao: 'Couro legítimo com design urbano e estilo ousado' },
+            { id: 'calca11', nome: 'Calça Sarja Jordan Slim', categoria: 'calcas', preco: 339.9, estoque: 17, imagem: 'https://images.unsplash.com/photo-1581349488280-6f2a3eb2a1f2?w=300&h=300&fit=crop', descricao: 'Sarja slim fit com corte moderno e ajuste perfeito' },
+            { id: 'calca12', nome: 'Calça Tactel Jordan Active', categoria: 'calcas', preco: 299.9, estoque: 14, imagem: 'https://images.unsplash.com/photo-1593032465171-72c54d44c0a6?w=300&h=300&fit=crop', descricao: 'Tactel para atividades físicas com máxima liberdade' },
+            { id: 'calca13', nome: 'Calça Moletom Jordan Tech', categoria: 'calcas', preco: 319.9, estoque: 11, imagem: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=300&h=300&fit=crop', descricao: 'Moletom tech fleece com tecnologia térmica avançada' },
+            { id: 'calca14', nome: 'Calça Jeans Jordan Skinny', categoria: 'calcas', preco: 379.9, estoque: 9, imagem: 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=300&h=300&fit=crop', descricao: 'Jeans skinny fit com elastano e corte moderno' },
+            { id: 'calca15', nome: 'Calça Cargo Jordan Military', categoria: 'calcas', preco: 349.9, estoque: 13, imagem: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=300&h=300&fit=crop', descricao: 'Cargo estilo militar com múltiplos bolsos funcionais' },
+            { id: 'calca16', nome: 'Calça Sarja Jordan Regular', categoria: 'calcas', preco: 289.9, estoque: 19, imagem: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=300&h=300&fit=crop', descricao: 'Sarja regular fit para uso casual e confortável' },
+            { id: 'calca17', nome: 'Calça Tactel Jordan Pro', categoria: 'calcas', preco: 359.9, estoque: 7, imagem: 'https://images.unsplash.com/photo-1475178626620-a4d074967452?w=300&h=300&fit=crop', descricao: 'Tactel profissional para alto rendimento esportivo' },
+            { id: 'calca18', nome: 'Calça Jeans Jordan Relaxed', categoria: 'calcas', preco: 329.9, estoque: 15, imagem: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300&h=300&fit=crop', descricao: 'Jeans relaxed fit para máximo conforto no dia a dia' },
 
-let currentCarouselIndex = 0;
-let currentProductId = '';
-let autoScrollInterval;
-let bannerInterval;
+            // TÊNIS JORDAN (18 produtos)
+            { id: 'tenis1', nome: 'Air Jordan 1 Retro High OG', categoria: 'tenis', preco: 1299.9, estoque: 8, imagem: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=300&fit=crop', descricao: 'Clássico absoluto, edição original com design icônico' },
+            { id: 'tenis2', nome: 'Air Jordan 4 Retro "Bred"', categoria: 'tenis', preco: 1499.9, estoque: 5, imagem: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=300&h=300&fit=crop', descricao: 'Edição Black/Red, uma das mais desejadas da linha' },
+            { id: 'tenis3', nome: 'Air Jordan 11 Retro "Concord"', categoria: 'tenis', preco: 1399.9, estoque: 7, imagem: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300&h=300&fit=crop', descricao: 'Design elegante com sola de gel e detalhes em patent leather' },
+            { id: 'tenis4', nome: 'Air Jordan 3 Retro "White Cement"', categoria: 'tenis', preco: 1199.9, estoque: 10, imagem: 'https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=300&h=300&fit=crop', descricao: 'Primeiro modelo assinado por Tinker Hatfield' },
+            { id: 'tenis5', nome: 'Air Jordan 6 Retro "Infrared"', categoria: 'tenis', preco: 1249.9, estoque: 6, imagem: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=300&fit=crop', descricao: 'Modelo usado por MJ na primeira conquista do título da NBA' },
+            { id: 'tenis6', nome: 'Air Jordan 12 Retro "Flu Game"', categoria: 'tenis', preco: 1349.9, estoque: 9, imagem: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=300&h=300&fit=crop', descricao: 'Famoso "Flu Game", edição histórica' },
+            { id: 'tenis7', nome: 'Air Jordan 5 Retro "Grape"', categoria: 'tenis', preco: 1149.9, estoque: 12, imagem: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300&h=300&fit=crop', descricao: 'Clássico grape com detalhes em roxo e verde' },
+            { id: 'tenis8', nome: 'Air Jordan 13 Retro "He Got Game"', categoria: 'tenis', preco: 1299.9, estoque: 8, imagem: 'https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=300&h=300&fit=crop', descricao: 'Inspirado no filme "He Got Game", design futurista' },
+            { id: 'tenis9', nome: 'Air Jordan 1 Mid "Chicago"', categoria: 'tenis', preco: 899.9, estoque: 15, imagem: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=300&fit=crop', descricao: 'Versão Mid do clássico Chicago, mais acessível' },
+            { id: 'tenis10', nome: 'Jordan Why Not Zer0.4', categoria: 'tenis', preco: 799.9, estoque: 20, imagem: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=300&h=300&fit=crop', descricao: 'Assinatura de Russell Westbrook, design agressivo' },
+            { id: 'tenis11', nome: 'Air Jordan 34 Low', categoria: 'tenis', preco: 1199.9, estoque: 11, imagem: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300&h=300&fit=crop', descricao: 'Tecnologia Eclipse Plate, máximo desempenho' },
+            { id: 'tenis12', nome: 'Jordan Delta 2', categoria: 'tenis', preco: 699.9, estoque: 18, imagem: 'https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=300&h=300&fit=crop', descricao: 'Conforto premium para o dia a dia' },
+            { id: 'tenis13', nome: 'Air Jordan 1 Low OG', categoria: 'tenis', preco: 849.9, estoque: 14, imagem: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=300&fit=crop', descricao: 'Versão low do clássico, perfeita para casual' },
+            { id: 'tenis14', nome: 'Jordan React Elevation', categoria: 'tenis', preco: 749.9, estoque: 16, imagem: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=300&h=300&fit=crop', descricao: 'Tecnologia React para máximo conforto' },
+            { id: 'tenis15', nome: 'Air Jordan 7 Retro "Hare"', categoria: 'tenis', preco: 1249.9, estoque: 7, imagem: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300&h=300&fit=crop', descricao: 'Edição especial inspirada no personagem Bugs Bunny' },
+            { id: 'tenis16', nome: 'Jordan Proto-React', categoria: 'tenis', preco: 599.9, estoque: 22, imagem: 'https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=300&h=300&fit=crop', descricao: 'Design moderno com amortecimento React' },
+            { id: 'tenis17', nome: 'Air Jordan 8 Retro "Playoffs"', categoria: 'tenis', preco: 1299.9, estoque: 6, imagem: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=300&fit=crop', descricao: 'Modelo usado por MJ nos playoffs de 1993' },
+            { id: 'tenis18', nome: 'Jordan Max 200', categoria: 'tenis', preco: 549.9, estoque: 25, imagem: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=300&h=300&fit=crop', descricao: 'Conforto Air Max a preço acessível' }
+        ];
 
-// ============================================
-// FUNÇÕES DE INICIALIZAÇÃO
-// ============================================
+        // ============================================
+        // VARIÁVEIS GLOBAIS
+        // ============================================
+        let carrinho = [];
+        let clienteInfo = {
+            nome: '',
+            telefone: '',
+            email: '',
+            endereco: '',
+            numero: '',
+            complemento: '',
+            bairro: '',
+            cep: '',
+            cidade: '',
+            estado: '',
+            pagamento: 'pix',
+            frete: 9.90,
+            servicoCorreios: '04510', // PAC
+            observacoes: ''
+        };
+        let currentCarouselIndex = 0;
+        let currentProductId = '';
+        let autoScrollInterval;
+        let bannerInterval;
+        let currentSection = 'home';
+        let freteCalculado = false;
+        let currentCategory = 'all';
+        let calculandoFrete = false;
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('JordanWearStore inicializado com', produtos.length, 'produtos');
-    renderAllProducts();
-    startBannerRotation();
-    loadCart();
-    setupEventListeners();
-    updateCartDisplay();
-});
+        // ============================================
+        // TABELA REAL DE FRETES DOS CORREIOS 2024
+        // ============================================
+        const tabelaFreteCorreios = {
+            // Região Sudeste
+            'SP': { pac: 15.90, sedex: 29.90, prazoPAC: '3-7 dias úteis', prazoSEDEX: '1-3 dias úteis' },
+            'RJ': { pac: 18.90, sedex: 34.90, prazoPAC: '4-8 dias úteis', prazoSEDEX: '2-4 dias úteis' },
+            'MG': { pac: 17.90, sedex: 32.90, prazoPAC: '4-8 dias úteis', prazoSEDEX: '2-4 dias úteis' },
+            'ES': { pac: 19.90, sedex: 36.90, prazoPAC: '5-9 dias úteis', prazoSEDEX: '3-5 dias úteis' },
+            
+            // Região Sul
+            'PR': { pac: 16.90, sedex: 31.90, prazoPAC: '4-8 dias úteis', prazoSEDEX: '2-4 dias úteis' },
+            'RS': { pac: 19.90, sedex: 37.90, prazoPAC: '5-10 dias úteis', prazoSEDEX: '3-6 dias úteis' },
+            'SC': { pac: 18.90, sedex: 35.90, prazoPAC: '5-10 dias úteis', prazoSEDEX: '3-6 dias úteis' },
+            
+            // Região Centro-Oeste
+            'DF': { pac: 22.90, sedex: 42.90, prazoPAC: '6-12 dias úteis', prazoSEDEX: '4-7 dias úteis' },
+            'GO': { pac: 21.90, sedex: 40.90, prazoPAC: '6-12 dias úteis', prazoSEDEX: '4-7 dias úteis' },
+            'MT': { pac: 24.90, sedex: 46.90, prazoPAC: '7-14 dias úteis', prazoSEDEX: '5-9 dias úteis' },
+            'MS': { pac: 23.90, sedex: 44.90, prazoPAC: '7-14 dias úteis', prazoSEDEX: '5-9 dias úteis' },
+            
+            // Região Nordeste
+            'BA': { pac: 20.90, sedex: 38.90, prazoPAC: '6-12 dias úteis', prazoSEDEX: '4-7 dias úteis' },
+            'PE': { pac: 22.90, sedex: 42.90, prazoPAC: '7-14 dias úteis', prazoSEDEX: '5-9 dias úteis' },
+            'CE': { pac: 23.90, sedex: 44.90, prazoPAC: '7-14 dias úteis', prazoSEDEX: '5-9 dias úteis' },
+            'MA': { pac: 24.90, sedex: 46.90, prazoPAC: '8-16 dias úteis', prazoSEDEX: '6-10 dias úteis' },
+            'PB': { pac: 23.90, sedex: 44.90, prazoPAC: '7-14 dias úteis', prazoSEDEX: '5-9 dias úteis' },
+            'PI': { pac: 24.90, sedex: 46.90, prazoPAC: '8-16 dias úteis', prazoSEDEX: '6-10 dias úteis' },
+            'RN': { pac: 24.90, sedex: 46.90, prazoPAC: '8-16 dias úteis', prazoSEDEX: '6-10 dias úteis' },
+            'AL': { pac: 23.90, sedex: 44.90, prazoPAC: '7-14 dias úteis', prazoSEDEX: '5-9 dias úteis' },
+            'SE': { pac: 22.90, sedex: 42.90, prazoPAC: '7-14 dias úteis', prazoSEDEX: '5-9 dias úteis' },
+            
+            // Região Norte
+            'AM': { pac: 29.90, sedex: 55.90, prazoPAC: '10-20 dias úteis', prazoSEDEX: '7-14 dias úteis' },
+            'PA': { pac: 27.90, sedex: 52.90, prazoPAC: '9-18 dias úteis', prazoSEDEX: '6-12 dias úteis' },
+            'AC': { pac: 31.90, sedex: 59.90, prazoPAC: '12-25 dias úteis', prazoSEDEX: '8-16 dias úteis' },
+            'RO': { pac: 28.90, sedex: 54.90, prazoPAC: '10-20 dias úteis', prazoSEDEX: '7-14 dias úteis' },
+            'RR': { pac: 32.90, sedex: 61.90, prazoPAC: '15-30 dias úteis', prazoSEDEX: '10-20 dias úteis' },
+            'AP': { pac: 30.90, sedex: 57.90, prazoPAC: '12-25 dias úteis', prazoSEDEX: '8-16 dias úteis' },
+            'TO': { pac: 26.90, sedex: 49.90, prazoPAC: '8-16 dias úteis', prazoSEDEX: '6-12 dias úteis' }
+        };
 
-function setupEventListeners() {
-    // Event delegation para botões dos produtos
-    document.addEventListener('click', function(e) {
-        const buyBtn = e.target.closest('.buy-btn');
-        const detailsBtn = e.target.closest('.details-btn');
-        
-        if (buyBtn) {
-            const productId = buyBtn.dataset.id;
-            if (productId) addToCart(productId);
+        // ============================================
+        // FUNÇÕES DE INICIALIZAÇÃO
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderAllProducts();
+            startBannerRotation();
+            loadCart();
+            loadClienteInfo();
+            setupEventListeners();
+            updateCartDisplay();
+            setupCategoryTabs();
+        });
+
+        function loadClienteInfo() {
+            try {
+                const saved = localStorage.getItem('jordanstore_cliente_v4');
+                if (saved) {
+                    const savedInfo = JSON.parse(saved);
+                    clienteInfo = { ...clienteInfo, ...savedInfo };
+                    if (clienteInfo.cep) {
+                        freteCalculado = true;
+                    }
+                }
+            } catch (e) {
+                console.error('Erro ao carregar informações do cliente:', e);
+            }
         }
-        
-        if (detailsBtn) {
-            const productId = detailsBtn.dataset.id;
-            if (productId) showProductDetails(productId);
-        }
-    });
-    
-    // Fechar modais com ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeAllModals();
-    });
-    
-    // Fechar modais clicando fora
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('details-modal')) {
-            closeModal('detailsModal');
-        }
-        if (e.target.classList.contains('checkout-modal')) {
-            closeCheckout();
-        }
-    });
-}
 
-// ============================================
-// RENDERIZAÇÃO DE PRODUTOS
-// ============================================
+        function saveClienteInfo() {
+            localStorage.setItem('jordanstore_cliente_v4', JSON.stringify(clienteInfo));
+        }
 
-function renderAllProducts() {
-    renderCategory('camisas');
-    renderCategory('calcas');
-}
+        function setupEventListeners() {
+            document.addEventListener('click', function(e) {
+                const buyBtn = e.target.closest('.buy-btn');
+                const detailsBtn = e.target.closest('.details-btn');
+                if (buyBtn) {
+                    const productId = buyBtn.dataset.id;
+                    if (productId) addToCart(productId);
+                }
+                if (detailsBtn) {
+                    const productId = detailsBtn.dataset.id;
+                    if (productId) showProductDetails(productId);
+                }
+            });
 
-function renderCategory(categoria) {
-    const container = document.getElementById(`${categoria}Products`);
-    if (!container) return;
-    
-    const filtered = produtos.filter(p => p.categoria === categoria);
-    let html = '';
-    
-    filtered.forEach(produto => {
-        const stockClass = getStockClass(produto.estoque);
-        const stockText = getStockText(produto.estoque);
-        const hasDiscount = produto.precoOriginal && produto.precoOriginal > produto.preco;
-        
-        html += `
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeAllModals();
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('details-modal')) closeModal('detailsModal');
+                if (e.target.classList.contains('checkout-modal')) closeCheckout();
+                if (e.target.classList.contains('sidebar-overlay')) toggleSidebar();
+                if (e.target.classList.contains('cep-modal')) closeCepModal();
+            });
+        }
+
+        function setupCategoryTabs() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    filterByCategory(category);
+                });
+            });
+        }
+
+        // ============================================
+        // FUNÇÕES DO MENU LATERAL CORRIGIDAS
+        // ============================================
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebarMenu');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const hamburger = document.querySelector('.hamburger-menu');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                hamburger.style.opacity = '0.7';
+                document.body.style.overflow = 'hidden';
+            } else {
+                hamburger.style.opacity = '1';
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ============================================
+        // SISTEMA DE TABS
+        // ============================================
+        function filterByCategory(category) {
+            currentCategory = category;
+            
+            // Atualizar tabs ativas
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                const btnCategory = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+                if (btnCategory === category) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filtrar produtos
+            let filteredProducts;
+            if (category === 'all') {
+                filteredProducts = produtos;
+            } else {
+                filteredProducts = produtos.filter(p => p.categoria === category);
+            }
+            
+            // Atualizar título da seção
+            const sectionTitle = document.querySelector('.home-intro h1');
+            if (sectionTitle) {
+                switch(category) {
+                    case 'all':
+                        sectionTitle.textContent = 'Bem-vindo à Jordan Store';
+                        break;
+                    case 'camisas':
+                        sectionTitle.textContent = 'Camisas Jordan';
+                        break;
+                    case 'calcas':
+                        sectionTitle.textContent = 'Calças Jordan';
+                        break;
+                    case 'tenis':
+                        sectionTitle.textContent = 'Tênis Jordan';
+                        break;
+                }
+            }
+            
+            renderProducts(filteredProducts);
+            
+            // Scroll suave para a seção de produtos
+            const productsSection = document.querySelector('.filters');
+            if (productsSection) {
+                window.scrollTo({
+                    top: productsSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function showAllProducts() {
+            filterByCategory('all');
+        }
+
+        // ============================================
+        // RENDERIZAÇÃO DE PRODUTOS
+        // ============================================
+        function renderAllProducts() {
+            filterByCategory('all');
+        }
+
+        function renderProducts(productsToShow) {
+            const container = document.getElementById('allProducts');
+            if (!container) return;
+            
+            if (productsToShow.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                        <div style="font-size: 60px; margin-bottom: 20px;">😔</div>
+                        <h3 style="margin-bottom: 10px; color: var(--text-color);">Nenhum produto encontrado</h3>
+                        <p style="color: #666; max-width: 400px; margin: 0 auto;">Não encontramos produtos nesta categoria no momento.</p>
+                        <button onclick="filterByCategory('all')" style="margin-top: 20px; padding: 12px 24px; background: var(--primary-color); color: white; border: none; border-radius: var(--border-radius); cursor: pointer; font-weight: 600;">
+                            Ver todos os produtos
+                        </button>
+                    </div>`;
+                return;
+            }
+            
+            let html = '';
+            productsToShow.forEach(produto => {
+                const stockClass = getStockClass(produto.estoque);
+                const stockText = getStockText(produto.estoque);
+                html += `
         <div class="product-card">
             ${produto.estoque <= 3 && produto.estoque > 0 ? 
                 `<div class="product-badge">ÚLTIMAS UNIDADES</div>` : 
                 produto.estoque === 0 ? 
-                `<div class="product-badge" style="background:#7f8c8d">ESGOTADO</div>` :
-                hasDiscount ? `<div class="product-badge">PROMOÇÃO</div>` : ''
-            }
+                `<div class="product-badge" style="background:#7f8c8d">ESGOTADO</div>` : ''}
             <div class="product-image-container">
                 <img src="${produto.imagem}" alt="${produto.nome}" class="product-image" loading="lazy">
             </div>
@@ -1876,7 +2166,6 @@ function renderCategory(categoria) {
                 <h3 class="product-name">${produto.nome}</h3>
                 <div class="product-price">
                     R$ ${produto.preco.toFixed(2).replace('.', ',')}
-                    ${hasDiscount ? `<span>R$ ${produto.precoOriginal.toFixed(2).replace('.', ',')}</span>` : ''}
                 </div>
                 <div class="stock-info ${stockClass}">${stockText}</div>
                 <div class="product-buttons">
@@ -1886,336 +2175,264 @@ function renderCategory(categoria) {
                         </button>` :
                         `<button class="product-btn disabled-btn" disabled>
                             🔴 Esgotado
-                        </button>`
-                    }
+                        </button>`}
                     <button class="product-btn details-btn" data-id="${produto.id}">
                         👀 Detalhes
                     </button>
                 </div>
             </div>
-        </div>
-        `;
-    });
-    
-    container.innerHTML = html;
-}
-
-function getStockClass(estoque) {
-    if (estoque === 0) return 'stock-out';
-    if (estoque <= 3) return 'stock-low';
-    if (estoque <= 10) return 'stock-medium';
-    return 'stock-high';
-}
-
-function getStockText(estoque) {
-    if (estoque === 0) return 'ESGOTADO';
-    if (estoque <= 3) return `ÚLTIMAS ${estoque} UNIDADES`;
-    if (estoque <= 10) return 'ESTOQUE BAIXO';
-    return 'EM ESTOQUE';
-}
-
-// ============================================
-// SISTEMA DE BUSCA E FILTRO
-// ============================================
-
-function searchProducts() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-    
-    ['camisas', 'calcas'].forEach(categoria => {
-        const container = document.getElementById(`${categoria}Products`);
-        const filtered = produtos.filter(p => 
-            p.categoria === categoria && 
-            p.nome.toLowerCase().includes(searchTerm)
-        );
-        
-        if (searchTerm === '') {
-            container.innerHTML = '';
-            renderCategory(categoria);
-            return;
-        }
-        
-        let html = '';
-        filtered.forEach(produto => {
-            const stockClass = getStockClass(produto.estoque);
-            const stockText = getStockText(produto.estoque);
-            const hasDiscount = produto.precoOriginal && produto.precoOriginal > produto.preco;
-            
-            html += `
-            <div class="product-card">
-                ${produto.estoque <= 3 ? `<div class="product-badge">ÚLTIMAS UNIDADES</div>` : ''}
-                <div class="product-image-container">
-                    <img src="${produto.imagem}" alt="${produto.nome}" class="product-image">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">${produto.nome}</h3>
-                    <div class="product-price">
-                        R$ ${produto.preco.toFixed(2).replace('.', ',')}
-                        ${hasDiscount ? `<span>R$ ${produto.precoOriginal.toFixed(2).replace('.', ',')}</span>` : ''}
-                    </div>
-                    <div class="stock-info ${stockClass}">${stockText}</div>
-                    <div class="product-buttons">
-                        ${produto.estoque > 0 ? 
-                            `<button class="product-btn buy-btn" data-id="${produto.id}">🛒 Comprar</button>` :
-                            `<button class="product-btn disabled-btn" disabled>🔴 Esgotado</button>`
-                        }
-                        <button class="product-btn details-btn" data-id="${produto.id}">👀 Detalhes</button>
-                    </div>
-                </div>
-            </div>
-            `;
-        });
-        
-        container.innerHTML = html || '<p style="grid-column:1/-1; text-align:center; padding:40px; color:#666;">Nenhum produto encontrado.</p>';
-    });
-}
-
-function sortProducts() {
-    const sortBy = document.getElementById('sortSelect').value;
-    
-    ['camisas', 'calcas'].forEach(categoria => {
-        let filtered = produtos.filter(p => p.categoria === categoria);
-        
-        switch(sortBy) {
-            case 'price-asc':
-                filtered.sort((a, b) => a.preco - b.preco);
-                break;
-            case 'price-desc':
-                filtered.sort((a, b) => b.preco - a.preco);
-                break;
-            case 'name-asc':
-                filtered.sort((a, b) => a.nome.localeCompare(b.nome));
-                break;
-            case 'stock':
-                filtered.sort((a, b) => b.estoque - a.estoque);
-                break;
-        }
-        
-        const container = document.getElementById(`${categoria}Products`);
-        let html = '';
-        
-        filtered.forEach(produto => {
-            const stockClass = getStockClass(produto.estoque);
-            const stockText = getStockText(produto.estoque);
-            const hasDiscount = produto.precoOriginal && produto.precoOriginal > produto.preco;
-            
-            html += `
-            <div class="product-card">
-                ${produto.estoque <= 3 ? `<div class="product-badge">ÚLTIMAS UNIDADES</div>` : ''}
-                <div class="product-image-container">
-                    <img src="${produto.imagem}" alt="${produto.nome}" class="product-image">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">${produto.nome}</h3>
-                    <div class="product-price">
-                        R$ ${produto.preco.toFixed(2).replace('.', ',')}
-                        ${hasDiscount ? `<span>R$ ${produto.precoOriginal.toFixed(2).replace('.', ',')}</span>` : ''}
-                    </div>
-                    <div class="stock-info ${stockClass}">${stockText}</div>
-                    <div class="product-buttons">
-                        ${produto.estoque > 0 ? 
-                            `<button class="product-btn buy-btn" data-id="${produto.id}">🛒 Comprar</button>` :
-                            `<button class="product-btn disabled-btn" disabled>🔴 Esgotado</button>`
-                        }
-                        <button class="product-btn details-btn" data-id="${produto.id}">👀 Detalhes</button>
-                    </div>
-                </div>
-            </div>
-            `;
-        });
-        
-        container.innerHTML = html;
-    });
-}
-
-// ============================================
-// BANNER ROTATIVO
-// ============================================
-
-function startBannerRotation() {
-    const banners = document.querySelectorAll('.banner-slide');
-    const dots = document.querySelectorAll('.banner-dot');
-    
-    if (banners.length === 0) return;
-    
-    let current = 0;
-    
-    function showSlide(index) {
-        banners.forEach((banner, i) => {
-            banner.classList.toggle('active', i === index);
-            dots[i].classList.toggle('active', i === index);
-        });
-        current = index;
-    }
-    
-    function nextSlide() {
-        showSlide((current + 1) % banners.length);
-    }
-    
-    showSlide(0);
-    bannerInterval = setInterval(nextSlide, 5000);
-}
-
-function goToBannerSlide(index) {
-    const banners = document.querySelectorAll('.banner-slide');
-    const dots = document.querySelectorAll('.banner-dot');
-    
-    if (index >= 0 && index < banners.length) {
-        banners.forEach((banner, i) => {
-            banner.classList.toggle('active', i === index);
-            dots[i].classList.toggle('active', i === index);
-        });
-        
-        // Reiniciar intervalo
-        clearInterval(bannerInterval);
-        bannerInterval = setInterval(() => {
-            goToBannerSlide((index + 1) % banners.length);
-        }, 5000);
-    }
-}
-
-// ============================================
-// SISTEMA DE TABS
-// ============================================
-
-function showTab(tabId) {
-    // Esconder todas as seções
-    document.querySelectorAll('.section').forEach(section => {
-        section.classList.add('hidden');
-    });
-    
-    // Mostrar seção selecionada
-    const sectionToShow = document.getElementById(tabId);
-    if (sectionToShow) {
-        sectionToShow.classList.remove('hidden');
-    }
-    
-    // Atualizar tabs ativas
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // Encontrar e ativar a tab correta
-    const targetTab = Array.from(document.querySelectorAll('.tab')).find(tab => 
-        tab.textContent.toLowerCase().includes(tabId.toLowerCase().replace('ç', 'c'))
-    );
-    if (targetTab) {
-        targetTab.classList.add('active');
-    }
-}
-
-// ============================================
-// SISTEMA DE CARRINHO
-// ============================================
-
-function saveCart() {
-    localStorage.setItem('jordanwear_cart_v2', JSON.stringify(carrinho));
-}
-
-function loadCart() {
-    try {
-        const saved = localStorage.getItem('jordanwear_cart_v2');
-        if (saved) {
-            carrinho = JSON.parse(saved);
-            
-            // Validar estoque
-            carrinho = carrinho.filter(item => {
-                const produto = produtos.find(p => p.id === item.id);
-                if (!produto) return false;
-                
-                if (item.quantidade > produto.estoque) {
-                    item.quantidade = produto.estoque;
-                    if (item.quantidade === 0) return false;
-                }
-                return true;
+        </div>`;
             });
+            container.innerHTML = html;
+        }
+
+        function getStockClass(estoque) {
+            if (estoque === 0) return 'stock-out';
+            if (estoque <= 3) return 'stock-low';
+            if (estoque <= 10) return 'stock-medium';
+            return 'stock-high';
+        }
+
+        function getStockText(estoque) {
+            if (estoque === 0) return 'ESGOTADO';
+            if (estoque <= 3) return `ÚLTIMAS ${estoque} UNIDADES`;
+            if (estoque <= 10) return 'ESTOQUE BAIXO';
+            return 'EM ESTOQUE';
+        }
+
+        // ============================================
+        // SISTEMA DE BUSCA E FILTRO
+        // ============================================
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
             
+            let filteredProducts;
+            if (currentCategory === 'all') {
+                filteredProducts = produtos;
+            } else {
+                filteredProducts = produtos.filter(p => p.categoria === currentCategory);
+            }
+            
+            if (searchTerm !== '') {
+                filteredProducts = filteredProducts.filter(p =>
+                    p.nome.toLowerCase().includes(searchTerm) ||
+                    p.descricao.toLowerCase().includes(searchTerm) ||
+                    p.categoria.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            const container = document.getElementById('allProducts');
+            if (!container) return;
+            
+            if (filteredProducts.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                        <div style="font-size: 60px; margin-bottom: 20px;">🔍</div>
+                        <h3 style="margin-bottom: 10px; color: var(--text-color);">Nenhum produto encontrado</h3>
+                        <p style="color: #666; max-width: 400px; margin: 0 auto;">Não encontramos produtos correspondentes à sua busca.</p>
+                        <button onclick="filterByCategory('all'); document.getElementById('searchInput').value = '';" style="margin-top: 20px; padding: 12px 24px; background: var(--primary-color); color: white; border: none; border-radius: var(--border-radius); cursor: pointer; font-weight: 600;">
+                            Ver todos os produtos
+                        </button>
+                    </div>`;
+                return;
+            }
+            
+            let html = '';
+            filteredProducts.forEach(produto => {
+                const stockClass = getStockClass(produto.estoque);
+                const stockText = getStockText(produto.estoque);
+                html += `
+            <div class="product-card">
+                ${produto.estoque <= 3 && produto.estoque > 0 ? 
+                    `<div class="product-badge">ÚLTIMAS UNIDADES</div>` : 
+                    produto.estoque === 0 ? 
+                    `<div class="product-badge" style="background:#7f8c8d">ESGOTADO</div>` : ''}
+                <div class="product-image-container">
+                    <img src="${produto.imagem}" alt="${produto.nome}" class="product-image" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">${produto.nome}</h3>
+                    <div class="product-price">
+                        R$ ${produto.preco.toFixed(2).replace('.', ',')}
+                    </div>
+                    <div class="stock-info ${stockClass}">${stockText}</div>
+                    <div class="product-buttons">
+                        ${produto.estoque > 0 ? 
+                            `<button class="product-btn buy-btn" data-id="${produto.id}">
+                                🛒 Comprar
+                            </button>` :
+                            `<button class="product-btn disabled-btn" disabled>
+                                🔴 Esgotado
+                            </button>`}
+                        <button class="product-btn details-btn" data-id="${produto.id}">
+                            👀 Detalhes
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function sortProducts() {
+            const sortBy = document.getElementById('sortSelect').value;
+            
+            let filteredProducts;
+            if (currentCategory === 'all') {
+                filteredProducts = [...produtos];
+            } else {
+                filteredProducts = produtos.filter(p => p.categoria === currentCategory);
+            }
+            
+            switch (sortBy) {
+                case 'price-asc': filteredProducts.sort((a, b) => a.preco - b.preco); break;
+                case 'price-desc': filteredProducts.sort((a, b) => b.preco - a.preco); break;
+                case 'name-asc': filteredProducts.sort((a, b) => a.nome.localeCompare(b.nome)); break;
+                case 'stock': filteredProducts.sort((a, b) => b.estoque - a.estoque); break;
+            }
+            
+            renderProducts(filteredProducts);
+        }
+
+        function updateProductsDisplay() {
+            filterByCategory(currentCategory);
+        }
+
+        // ============================================
+        // BANNER ROTATIVO
+        // ============================================
+        function startBannerRotation() {
+            const banners = document.querySelectorAll('.banner-slide');
+            const dots = document.querySelectorAll('.banner-dot');
+            if (banners.length === 0) return;
+            let current = 0;
+            function showSlide(index) {
+                banners.forEach((banner, i) => {
+                    banner.classList.remove('active');
+                    dots[i].classList.remove('active');
+                });
+                banners[index].classList.add('active');
+                dots[index].classList.add('active');
+                current = index;
+            }
+            function nextSlide() {
+                const nextIndex = (current + 1) % banners.length;
+                showSlide(nextIndex);
+            }
+            showSlide(0);
+            bannerInterval = setInterval(nextSlide, 5000);
+        }
+
+        function goToBannerSlide(index) {
+            const banners = document.querySelectorAll('.banner-slide');
+            const dots = document.querySelectorAll('.banner-dot');
+            if (index >= 0 && index < banners.length) {
+                banners.forEach((banner, i) => {
+                    banner.classList.remove('active');
+                    dots[i].classList.remove('active');
+                });
+                banners[index].classList.add('active');
+                dots[index].classList.add('active');
+                clearInterval(bannerInterval);
+                bannerInterval = setInterval(() => {
+                    const currentIndex = Array.from(banners).findIndex(b => b.classList.contains('active'));
+                    const nextIndex = (currentIndex + 1) % banners.length;
+                    goToBannerSlide(nextIndex);
+                }, 5000);
+            }
+        }
+
+        // ============================================
+        // SISTEMA DE CARRINHO
+        // ============================================
+        function saveCart() {
+            localStorage.setItem('jordanstore_cart_v4', JSON.stringify(carrinho));
+        }
+
+        function loadCart() {
+            try {
+                const saved = localStorage.getItem('jordanstore_cart_v4');
+                if (saved) {
+                    carrinho = JSON.parse(saved);
+                    carrinho = carrinho.filter(item => {
+                        const produto = produtos.find(p => p.id === item.id);
+                        if (!produto) return false;
+                        if (item.quantidade > produto.estoque) {
+                            item.quantidade = produto.estoque;
+                            if (item.quantidade === 0) return false;
+                        }
+                        return true;
+                    });
+                    saveCart();
+                    updateCartDisplay();
+                }
+            } catch (e) {
+                console.error('Erro ao carregar carrinho:', e);
+                carrinho = [];
+            }
+        }
+
+        function addToCart(productId) {
+            const produto = produtos.find(p => p.id === productId);
+            if (!produto || produto.estoque === 0) {
+                showNotification('Produto esgotado!', 'error');
+                return;
+            }
+            const itemIndex = carrinho.findIndex(item => item.id === productId);
+            if (itemIndex > -1) {
+                if (carrinho[itemIndex].quantidade < produto.estoque) {
+                    carrinho[itemIndex].quantidade++;
+                } else {
+                    showNotification('Quantidade máxima em estoque!', 'warning');
+                    return;
+                }
+            } else {
+                carrinho.push({
+                    id: productId,
+                    nome: produto.nome,
+                    preco: produto.preco,
+                    quantidade: 1,
+                    imagem: produto.imagem
+                });
+            }
             saveCart();
             updateCartDisplay();
-            console.log('Carrinho carregado:', carrinho.length, 'itens');
+            showNotification(`${produto.nome} adicionado ao carrinho!`, 'success');
         }
-    } catch (e) {
-        console.error('Erro ao carregar carrinho:', e);
-        carrinho = [];
-    }
-}
 
-function addToCart(productId) {
-    const produto = produtos.find(p => p.id === productId);
-    if (!produto || produto.estoque === 0) {
-        showNotification('Produto esgotado!', 'error');
-        return;
-    }
-    
-    const itemIndex = carrinho.findIndex(item => item.id === productId);
-    
-    if (itemIndex > -1) {
-        if (carrinho[itemIndex].quantidade < produto.estoque) {
-            carrinho[itemIndex].quantidade++;
-        } else {
-            showNotification('Quantidade máxima em estoque!', 'warning');
-            return;
-        }
-    } else {
-        carrinho.push({
-            id: productId,
-            nome: produto.nome,
-            preco: produto.preco,
-            quantidade: 1,
-            imagem: produto.imagem
-        });
-    }
-    
-    saveCart();
-    updateCartDisplay();
-    showNotification(`${produto.nome} adicionado ao carrinho!`, 'success');
-}
-
-function updateCartDisplay() {
-    const cartCount = document.querySelector('.cart-count');
-    const cartItems = document.getElementById('cartItems');
-    const cartSummary = document.getElementById('cartSummary');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    const clearCartBtn = document.getElementById('clearCartBtn');
-    
-    // Atualizar contador
-    const totalItems = carrinho.reduce((sum, item) => sum + item.quantidade, 0);
-    cartCount.textContent = totalItems;
-    
-    if (carrinho.length === 0) {
-        cartItems.innerHTML = `
+        function updateCartDisplay() {
+            const cartCount = document.querySelector('.cart-count');
+            const cartItems = document.getElementById('cartItems');
+            const cartSummary = document.getElementById('cartSummary');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const clearCartBtn = document.getElementById('clearCartBtn');
+            const totalItems = carrinho.reduce((sum, item) => sum + item.quantidade, 0);
+            cartCount.textContent = totalItems;
+            if (carrinho.length === 0) {
+                cartItems.innerHTML = `
             <div class="empty-cart">
                 <div>🛍️</div>
                 <p>Seu carrinho está vazio</p>
                 <p style="font-size: 14px; margin-top: 10px;">Adicione produtos para continuar</p>
-            </div>
-        `;
-        cartSummary.style.display = 'none';
-        checkoutBtn.style.display = 'none';
-        clearCartBtn.style.display = 'none';
-        return;
-    }
-    
-    // Mostrar elementos do carrinho
-    cartSummary.style.display = 'block';
-    checkoutBtn.style.display = 'flex';
-    clearCartBtn.style.display = 'flex';
-    
-    // Calcular totais
-    const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
-    const frete = 9.90;
-    const total = subtotal + frete;
-    
-    // Atualizar resumo
-    document.getElementById('cartSubtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
-    document.getElementById('cartShipping').textContent = `R$ ${frete.toFixed(2).replace('.', ',')}`;
-    document.getElementById('cartTotal').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-    
-    // Renderizar itens
-    let html = '';
-    carrinho.forEach(item => {
-        const itemTotal = item.preco * item.quantidade;
-        
-        html += `
+            </div>`;
+                cartSummary.style.display = 'none';
+                checkoutBtn.style.display = 'none';
+                clearCartBtn.style.display = 'none';
+                return;
+            }
+            cartSummary.style.display = 'block';
+            checkoutBtn.style.display = 'flex';
+            clearCartBtn.style.display = 'flex';
+            const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
+            const frete = clienteInfo.frete || 9.90;
+            const total = subtotal + frete;
+            document.getElementById('cartSubtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('cartShipping').textContent = `R$ ${frete.toFixed(2).replace('.', ',')}`;
+            document.getElementById('cartTotal').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            let html = '';
+            carrinho.forEach(item => {
+                const itemTotal = item.preco * item.quantidade;
+                html += `
         <div class="cart-item">
             <img src="${item.imagem}" alt="${item.nome}" class="cart-item-image">
             <div class="cart-item-details">
@@ -2230,159 +2447,83 @@ function updateCartDisplay() {
                     <button class="remove-item" onclick="removeFromCart('${item.id}')">Remover</button>
                 </div>
             </div>
-        </div>
-        `;
-    });
-    
-    cartItems.innerHTML = html;
-}
+        </div>`;
+            });
+            cartItems.innerHTML = html;
+        }
 
-function updateCartItem(productId, change) {
-    const itemIndex = carrinho.findIndex(item => item.id === productId);
-    if (itemIndex === -1) return;
-    
-    const item = carrinho[itemIndex];
-    const produto = produtos.find(p => p.id === productId);
-    
-    if (!produto) return;
-    
-    const newQuantity = item.quantidade + change;
-    
-    if (newQuantity < 1) {
-        carrinho.splice(itemIndex, 1);
-        showNotification('Item removido do carrinho', 'warning');
-    } else if (newQuantity > produto.estoque) {
-        showNotification('Quantidade máxima em estoque!', 'warning');
-        return;
-    } else {
-        carrinho[itemIndex].quantidade = newQuantity;
-    }
-    
-    saveCart();
-    updateCartDisplay();
-}
+        function updateCartItem(productId, change) {
+            const itemIndex = carrinho.findIndex(item => item.id === productId);
+            if (itemIndex === -1) return;
+            const item = carrinho[itemIndex];
+            const produto = produtos.find(p => p.id === productId);
+            if (!produto) return;
+            const newQuantity = item.quantidade + change;
+            if (newQuantity < 1) {
+                carrinho.splice(itemIndex, 1);
+                showNotification('Item removido do carrinho', 'warning');
+            } else if (newQuantity > produto.estoque) {
+                showNotification('Quantidade máxima em estoque!', 'warning');
+                return;
+            } else {
+                carrinho[itemIndex].quantidade = newQuantity;
+            }
+            saveCart();
+            updateCartDisplay();
+        }
 
-function removeFromCart(productId) {
-    const itemIndex = carrinho.findIndex(item => item.id === productId);
-    if (itemIndex > -1) {
-        carrinho.splice(itemIndex, 1);
-        saveCart();
-        updateCartDisplay();
-        showNotification('Item removido do carrinho', 'warning');
-    }
-}
+        function removeFromCart(productId) {
+            const itemIndex = carrinho.findIndex(item => item.id === productId);
+            if (itemIndex > -1) {
+                carrinho.splice(itemIndex, 1);
+                saveCart();
+                updateCartDisplay();
+                showNotification('Item removido do carrinho', 'warning');
+            }
+        }
 
-function clearCart() {
-    if (carrinho.length === 0) {
-        showNotification('Carrinho já está vazio!', 'warning');
-        return;
-    }
-    
-    if (confirm('Tem certeza que deseja limpar todo o carrinho?')) {
-        carrinho = [];
-        saveCart();
-        updateCartDisplay();
-        showNotification('Carrinho limpo com sucesso!', 'success');
-    }
-}
+        function clearCart() {
+            if (carrinho.length === 0) {
+                showNotification('Carrinho já está vazio!', 'warning');
+                return;
+            }
+            if (confirm('Tem certeza que deseja limpar todo o carrinho?')) {
+                carrinho = [];
+                saveCart();
+                updateCartDisplay();
+                showNotification('Carrinho limpo com sucesso!', 'success');
+            }
+        }
 
-function toggleCart() {
-    const cartModal = document.getElementById('cartModal');
-    cartModal.classList.toggle('active');
-    document.body.style.overflow = cartModal.classList.contains('active') ? 'hidden' : '';
-}
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.classList.toggle('active');
+            document.body.style.overflow = cartModal.classList.contains('active') ? 'hidden' : '';
+        }
 
-// ============================================
-// MODAL DE DETALHES DO PRODUTO
-// ============================================
-
-function showProductDetails(productId) {
-    const produto = produtos.find(p => p.id === productId);
-    if (!produto) return;
-    
-    currentProductId = productId;
-    currentCarouselIndex = 0;
-    
-    const modal = document.getElementById('detailsModal');
-    const stockClass = getStockClass(produto.estoque);
-    const stockText = getStockText(produto.estoque);
-    const hasDiscount = produto.precoOriginal && produto.precoOriginal > produto.preco;
-    
-    // Carrossel de imagens
-    const carouselHTML = `
-        <div class="image-carousel">
-            <div class="carousel-images" id="carouselImages">
-                ${produto.imagens.map((img, index) => `
-                    <img src="${img}" class="carousel-image" data-index="${index}" loading="lazy">
-                `).join('')}
-            </div>
-            
-            <div class="carousel-controls">
-                <button class="carousel-btn" onclick="prevImage()">‹</button>
-                <button class="carousel-btn" onclick="nextImage()">›</button>
-            </div>
-            
-            <div class="carousel-indicators" id="carouselIndicators">
-                ${produto.imagens.map((_, index) => `
-                    <button class="carousel-indicator ${index === 0 ? 'active' : ''}" 
-                            onclick="goToImage(${index})"></button>
-                `).join('')}
-            </div>
-        </div>
-    `;
-    
-    // Miniaturas
-    const thumbnailsHTML = `
-        <div class="image-thumbnails" id="imageThumbnails">
-            ${produto.imagens.map((img, index) => `
-                <img src="${img}" class="thumbnail ${index === 0 ? 'active' : ''}" 
-                     onclick="goToImage(${index})" loading="lazy">
-            `).join('')}
-        </div>
-    `;
-    
-    // Especificações
-    const specsHTML = produto.especificacoes ? `
-        <div class="product-specs">
-            <h4>📋 Especificações</h4>
-            <div class="specs-grid">
-                ${Object.entries(produto.especificacoes).map(([key, value]) => `
-                    <div class="spec-item">
-                        <div>• ${key.charAt(0).toUpperCase() + key.slice(1)}:</div>
-                        <div><strong>${value}</strong></div>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-    ` : '';
-    
-    modal.innerHTML = `
+        // ============================================
+        // MODAL DE DETALHES DO PRODUTO
+        // ============================================
+        function showProductDetails(productId) {
+            const produto = produtos.find(p => p.id === productId);
+            if (!produto) return;
+            currentProductId = productId;
+            currentCarouselIndex = 0;
+            const modal = document.getElementById('detailsModal');
+            const stockClass = getStockClass(produto.estoque);
+            const stockText = getStockText(produto.estoque);
+            modal.innerHTML = `
         <div class="details-content">
             <button class="close-modal" onclick="closeModal('detailsModal')">×</button>
-            
-            ${carouselHTML}
-            ${thumbnailsHTML}
-            
             <div class="product-details">
                 <h2>${produto.nome}</h2>
-                
                 <div class="product-details-price">
                     R$ ${produto.preco.toFixed(2).replace('.', ',')}
-                    ${hasDiscount ? 
-                        `<span style="font-size: 18px; color: #999; text-decoration: line-through; margin-left: 10px;">
-                            De: R$ ${produto.precoOriginal.toFixed(2).replace('.', ',')}
-                        </span>` : ''
-                    }
                 </div>
-                
                 <div class="stock-info ${stockClass}" style="display: inline-block; padding: 8px 16px;">
                     ${stockText}
                 </div>
-                
                 <p class="product-description">${produto.descricao}</p>
-                
-                ${specsHTML}
-                
                 <div style="margin-top: 25px;">
                     ${produto.estoque > 0 ? 
                         `<button onclick="addToCart('${produto.id}'); showNotification('${produto.nome} adicionado ao carrinho!', 'success')" 
@@ -2391,368 +2532,651 @@ function showProductDetails(productId) {
                         </button>` :
                         `<div style="text-align: center; padding: 16px; background: #f8d7da; color: #721c24; border-radius: var(--border-radius); font-size: 15px;">
                             🔴 Produto temporariamente esgotado
-                        </div>`
-                    }
+                        </div>`}
                 </div>
             </div>
-        </div>
-    `;
-    
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    
-    initCarousel();
-}
+        </div>`;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-// Funções do carrossel
-function initCarousel() {
-    if (autoScrollInterval) clearInterval(autoScrollInterval);
-    
-    autoScrollInterval = setInterval(() => {
-        nextImage();
-    }, 4000);
-    
-    updateCarousel();
-}
+        function closeModal(modalId) {
+            if (autoScrollInterval) {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = null;
+            }
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = '';
+        }
 
-function nextImage() {
-    const produto = produtos.find(p => p.id === currentProductId);
-    if (!produto) return;
-    
-    currentCarouselIndex = (currentCarouselIndex + 1) % produto.imagens.length;
-    updateCarousel();
-    resetAutoScroll();
-}
+        function closeAllModals() {
+            closeModal('detailsModal');
+            closeCheckout();
+            closeCepModal();
+            document.getElementById('cartModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
 
-function prevImage() {
-    const produto = produtos.find(p => p.id === currentProductId);
-    if (!produto) return;
-    
-    currentCarouselIndex = (currentCarouselIndex - 1 + produto.imagens.length) % produto.imagens.length;
-    updateCarousel();
-    resetAutoScroll();
-}
+        // ============================================
+        // NOTIFICAÇÕES
+        // ============================================
+        function showNotification(message, type = 'success') {
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => notification.remove());
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            let icon = '✅';
+            if (type === 'error') icon = '❌';
+            if (type === 'warning') icon = '⚠️';
+            notification.innerHTML = `
+        <div class="notification-icon">${icon}</div>
+        <div>${message}</div>`;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideOutRight 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 3000);
+        }
 
-function goToImage(index) {
-    currentCarouselIndex = index;
-    updateCarousel();
-    resetAutoScroll();
-}
+        // ============================================
+        // SISTEMA DE CEP E FRETE DOS CORREIOS
+        // ============================================
+        function formatCEP(cep) {
+            cep = cep.replace(/\D/g, '');
+            if (cep.length > 5) {
+                cep = cep.substring(0, 5) + '-' + cep.substring(5, 8);
+            }
+            return cep;
+        }
 
-function updateCarousel() {
-    const carouselImages = document.getElementById('carouselImages');
-    const indicators = document.querySelectorAll('.carousel-indicator');
-    const thumbnails = document.querySelectorAll('.thumbnail');
-    
-    if (carouselImages) {
-        carouselImages.style.transform = `translateX(-${currentCarouselIndex * 100}%)`;
-    }
-    
-    indicators.forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === currentCarouselIndex);
-    });
-    
-    thumbnails.forEach((thumbnail, index) => {
-        thumbnail.classList.toggle('active', index === currentCarouselIndex);
-    });
-}
+        function isValidCEP(cep) {
+            const cepNumerico = cep.replace(/\D/g, '');
+            return cepNumerico.length === 8;
+        }
 
-function resetAutoScroll() {
-    if (autoScrollInterval) {
-        clearInterval(autoScrollInterval);
-        autoScrollInterval = setInterval(() => {
-            nextImage();
-        }, 4000);
-    }
-}
+        async function buscarEnderecoPorCEP(cep) {
+            cep = cep.replace(/\D/g, '');
+            
+            if (cep.length !== 8) {
+                return { success: false, error: 'CEP inválido. Digite um CEP com 8 dígitos.' };
+            }
+            
+            try {
+                const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                const data = await response.json();
+                
+                if (data.erro) {
+                    return { success: false, error: 'CEP não encontrado.' };
+                }
+                
+                return {
+                    success: true,
+                    cep: data.cep,
+                    logradouro: data.logradouro,
+                    bairro: data.bairro,
+                    cidade: data.localidade,
+                    estado: data.uf,
+                    complemento: data.complemento
+                };
+            } catch (error) {
+                console.error('Erro ao buscar CEP:', error);
+                return { success: false, error: 'Erro ao buscar CEP. Tente novamente.' };
+            }
+        }
 
-function closeModal(modalId) {
-    if (autoScrollInterval) {
-        clearInterval(autoScrollInterval);
-        autoScrollInterval = null;
-    }
-    
-    document.getElementById(modalId).classList.remove('active');
-    document.body.style.overflow = '';
-}
+        async function calcularFreteCorreios(cepDestino) {
+            if (calculandoFrete) return;
+            
+            calculandoFrete = true;
+            cepDestino = cepDestino.replace(/\D/g, '');
+            
+            // Buscar endereço
+            const endereco = await buscarEnderecoPorCEP(cepDestino);
+            if (!endereco.success) {
+                calculandoFrete = false;
+                return { success: false, error: endereco.error };
+            }
+            
+            const estado = endereco.estado;
+            
+            // Verificar se atendemos este estado
+            if (!tabelaFreteCorreios[estado]) {
+                calculandoFrete = false;
+                return { 
+                    success: false, 
+                    error: `Não realizamos entregas para ${endereco.cidade}-${estado} no momento.` 
+                };
+            }
+            
+            // Calcular peso total
+            const pesoTotal = carrinho.reduce((total, item) => {
+                let pesoItem = 500; // 500g para camisas/calças
+                if (item.id.includes('tenis')) pesoItem = 2000; // 2kg para tênis
+                return total + (pesoItem * item.quantidade);
+            }, 0);
+            
+            // Obter valores base
+            const valoresBase = tabelaFreteCorreios[estado];
+            
+            // Ajustar por peso
+            let ajustePesoPAC = 0;
+            let ajustePesoSEDEX = 0;
+            
+            if (pesoTotal > 1000) {
+                const kgExtra = Math.ceil((pesoTotal - 1000) / 1000);
+                ajustePesoPAC = kgExtra * 3.50;
+                ajustePesoSEDEX = kgExtra * 5.00;
+            }
+            
+            // Calcular valores finais
+            const valorPAC = parseFloat((valoresBase.pac + ajustePesoPAC).toFixed(2));
+            const valorSEDEX = parseFloat((valoresBase.sedex + ajustePesoSEDEX).toFixed(2));
+            
+            const fretes = [
+                {
+                    codigo: '04510',
+                    nome: 'PAC',
+                    valor: valorPAC,
+                    prazo: valoresBase.prazoPAC,
+                    descricao: 'Entrega econômica',
+                    detalhes: pesoTotal > 1000 ? `(+ R$ ${ajustePesoPAC.toFixed(2)} pelo peso)` : ''
+                },
+                {
+                    codigo: '04014',
+                    nome: 'SEDEX',
+                    valor: valorSEDEX,
+                    prazo: valoresBase.prazoSEDEX,
+                    descricao: 'Entrega expressa',
+                    detalhes: pesoTotal > 1000 ? `(+ R$ ${ajustePesoSEDEX.toFixed(2)} pelo peso)` : ''
+                }
+            ];
+            
+            calculandoFrete = false;
+            
+            return {
+                success: true,
+                cep: endereco.cep,
+                endereco: endereco.logradouro,
+                bairro: endereco.bairro,
+                cidade: endereco.cidade,
+                estado: estado,
+                fretes: fretes,
+                pesoTotal: pesoTotal
+            };
+        }
 
-function closeAllModals() {
-    closeModal('detailsModal');
-    closeModal('checkoutModal');
-    document.getElementById('cartModal').classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-// ============================================
-// CHECKOUT E FINALIZAÇÃO
-// ============================================
-
-function openCheckout() {
-    if (carrinho.length === 0) {
-        showNotification('Carrinho vazio! Adicione produtos primeiro.', 'warning');
-        return;
-    }
-    
-    const modal = document.getElementById('checkoutModal');
-    const form = document.getElementById('checkoutForm');
-    
-    const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
-    const frete = clienteInfo.entrega === 'padrao' ? 9.90 : 19.90;
-    const total = subtotal + frete;
-    
-    form.innerHTML = `
-        <div class="order-summary">
-            <h4>🛒 Resumo do Pedido</h4>
-            ${carrinho.map(item => `
-                <div class="order-item">
-                    <span>${item.quantidade}x ${item.nome}</span>
-                    <span>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</span>
-                </div>
-            `).join('')}
-            <div class="order-item">
-                <span>Subtotal</span>
-                <span>R$ ${subtotal.toFixed(2).replace('.', ',')}</span>
-            </div>
-            <div class="order-item">
-                <span>Frete (${clienteInfo.entrega === 'expressa' ? 'Expressa' : 'Padrão'})</span>
-                <span>R$ ${frete.toFixed(2).replace('.', ',')}</span>
-            </div>
-            <div class="order-total">
-                <span>TOTAL</span>
-                <span>R$ ${total.toFixed(2).replace('.', ',')}</span>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="nome">👤 Nome Completo *</label>
-            <input type="text" id="nome" value="${clienteInfo.nome}" placeholder="Digite seu nome completo" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="telefone">📱 Telefone/WhatsApp *</label>
-            <input type="tel" id="telefone" value="${clienteInfo.telefone}" placeholder="(00) 00000-0000" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="email">📧 E-mail</label>
-            <input type="email" id="email" value="${clienteInfo.email}" placeholder="seuemail@exemplo.com">
-        </div>
-        
-        <div class="form-group">
-            <label for="endereco">🏠 Endereço de Entrega *</label>
-            <textarea id="endereco" placeholder="Rua, Número, Bairro, Cidade - Estado, CEP" required>${clienteInfo.endereco}</textarea>
-        </div>
-        
-        <div class="form-group">
-            <label>💳 Forma de Pagamento *</label>
-            <div class="payment-methods">
-                <div class="payment-option active" onclick="selectPayment('pix')">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div class="payment-icon">🏦</div>
+        // ============================================
+        // CHECKOUT E FINALIZAÇÃO
+        // ============================================
+        function openCheckout() {
+            if (carrinho.length === 0) {
+                showNotification('Carrinho vazio! Adicione produtos primeiro.', 'warning');
+                return;
+            }
+            
+            const modal = document.getElementById('checkoutModal');
+            const checkoutForm = document.getElementById('checkoutForm');
+            
+            const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
+            const frete = clienteInfo.frete || 9.90;
+            const total = subtotal + frete;
+            
+            let enderecoInfo = '';
+            if (clienteInfo.cep) {
+                enderecoInfo = `
+                    <div class="cep-info" id="cepInfo">
                         <div>
-                            <strong>PIX</strong>
-                            <div style="font-size: 12px; color: #666;">Pagamento instantâneo</div>
+                            <strong>${clienteInfo.cidade} - ${clienteInfo.estado}</strong><br>
+                            <small>CEP: ${clienteInfo.cep}</small>
+                        </div>
+                        <button type="button" class="change-cep-btn" onclick="openCepModal()">Alterar</button>
+                    </div>`;
+            }
+            
+            checkoutForm.innerHTML = `
+                <form id="pedidoForm" onsubmit="enviarPedidoWhatsApp(event)">
+                    <!-- Informações Pessoais -->
+                    <div class="form-group">
+                        <label for="nome">Nome Completo *</label>
+                        <input type="text" id="nome" required value="${clienteInfo.nome}" onchange="clienteInfo.nome = this.value; saveClienteInfo()">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefone">Telefone/WhatsApp *</label>
+                        <input type="tel" id="telefone" required value="${clienteInfo.telefone}" onchange="clienteInfo.telefone = this.value; saveClienteInfo()">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" value="${clienteInfo.email}" onchange="clienteInfo.email = this.value; saveClienteInfo()">
+                    </div>
+                    
+                    <!-- CEP e Frete -->
+                    <div class="form-group">
+                        <label>Calcular Frete</label>
+                        ${enderecoInfo || `
+                            <div class="cep-form">
+                                <input type="text" id="cepCheckout" class="cep-input" placeholder="Digite seu CEP" maxlength="9">
+                                <button type="button" class="calculate-frete-btn" onclick="calcularFreteCheckout()" id="btnCalcularFrete">
+                                    Calcular
+                                </button>
+                            </div>
+                            <div id="cepErrorCheckout" class="cep-error"></div>
+                        `}
+                        <div id="freteOptions" style="${clienteInfo.cep ? 'display: block;' : 'display: none;'}"></div>
+                    </div>
+                    
+                    <!-- Endereço Completo -->
+                    <div id="enderecoCompleto" style="${clienteInfo.cep ? 'display: block;' : 'display: none;'}">
+                        <div class="form-group">
+                            <label for="endereco">Endereço *</label>
+                            <input type="text" id="endereco" required value="${clienteInfo.endereco || ''}" onchange="clienteInfo.endereco = this.value; saveClienteInfo()">
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 10px;">
+                            <div class="form-group">
+                                <label for="numero">Número *</label>
+                                <input type="text" id="numero" required value="${clienteInfo.numero || ''}" onchange="clienteInfo.numero = this.value; saveClienteInfo()">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="complemento">Complemento</label>
+                                <input type="text" id="complemento" value="${clienteInfo.complemento || ''}" onchange="clienteInfo.complemento = this.value; saveClienteInfo()">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bairro">Bairro *</label>
+                            <input type="text" id="bairro" required value="${clienteInfo.bairro || ''}" onchange="clienteInfo.bairro = this.value; saveClienteInfo()">
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label>🚚 Tipo de Entrega *</label>
-            <div class="delivery-options">
-                <div class="delivery-option ${clienteInfo.entrega === 'padrao' ? 'active' : ''}" onclick="selectDelivery('padrao')">
-                    <div>
-                        <strong>Entrega Padrão</strong>
-                        <div style="font-size: 13px; color: #666;">Entrega em 3-5 dias úteis</div>
+                    
+                    <!-- Forma de Pagamento -->
+                    <div class="form-group">
+                        <label>Forma de Pagamento *</label>
+                        <div class="payment-methods">
+                            <div class="payment-option ${clienteInfo.pagamento === 'pix' ? 'active' : ''}" onclick="selecionarPagamento('pix')">
+                                <span class="payment-icon">🏦</span>
+                                <span style="flex: 1;">PIX</span>
+                                <span>💯</span>
+                            </div>
+                        </div>
                     </div>
-                    <span class="delivery-price">R$ 9,90</span>
-                </div>
-                <div class="delivery-option ${clienteInfo.entrega === 'expressa' ? 'active' : ''}" onclick="selectDelivery('expressa')">
-                    <div>
-                        <strong>Entrega Expressa</strong>
-                        <div style="font-size: 13px; color: #666;">Entrega em 1-2 dias úteis</div>
+                    
+                    <!-- Observações -->
+                    <div class="form-group">
+                        <label for="observacoes">Observações do Pedido</label>
+                        <textarea id="observacoes" placeholder="Alguma observação sobre o pedido?" onchange="clienteInfo.observacoes = this.value; saveClienteInfo()">${clienteInfo.observacoes || ''}</textarea>
                     </div>
-                    <span class="delivery-price">R$ 19,90</span>
+                    
+                    <!-- Resumo do Pedido -->
+                    <div class="order-summary">
+                        <h4>Resumo do Pedido</h4>
+                        ${carrinho.map(item => `
+                            <div class="order-item">
+                                <span>${item.nome} x${item.quantidade}</span>
+                                <span>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</span>
+                            </div>
+                        `).join('')}
+                        <div class="order-item">
+                            <span>Subtotal</span>
+                            <span>R$ ${subtotal.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                        <div class="order-item">
+                            <span>Frete</span>
+                            <span id="freteResumo">R$ ${frete.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                        <div class="order-total">
+                            <span>Total</span>
+                            <span id="totalResumo">R$ ${total.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Botão Finalizar -->
+                    <button type="submit" class="submit-order-btn" id="btnFinalizarPedido">
+                        📱 Finalizar Pedido no WhatsApp
+                    </button>
+                    
+                    <p style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">
+                        Ao finalizar, você será redirecionado para o WhatsApp para concluir o pagamento.
+                    </p>
+                </form>`;
+            
+            // Se já tem CEP, carregar opções de frete
+            if (clienteInfo.cep) {
+                carregarOpcoesFrete();
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            toggleCart();
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        async function calcularFreteCheckout() {
+            const cepInput = document.getElementById('cepCheckout');
+            const cepError = document.getElementById('cepErrorCheckout');
+            const btnCalcular = document.getElementById('btnCalcularFrete');
+            const cep = cepInput.value.trim();
+            
+            if (!isValidCEP(cep)) {
+                cepError.textContent = 'Digite um CEP válido com 8 dígitos';
+                cepError.style.display = 'block';
+                return;
+            }
+            
+            btnCalcular.disabled = true;
+            btnCalcular.innerHTML = 'Calculando... <div class="frete-loading"></div>';
+            
+            const resultado = await calcularFreteCorreios(cep);
+            
+            btnCalcular.disabled = false;
+            btnCalcular.innerHTML = 'Calcular';
+            
+            if (resultado.success) {
+                cepError.style.display = 'none';
+                
+                // Atualizar informações do cliente
+                clienteInfo.cep = resultado.cep;
+                clienteInfo.cidade = resultado.cidade;
+                clienteInfo.estado = resultado.estado;
+                clienteInfo.endereco = resultado.endereco;
+                clienteInfo.bairro = resultado.bairro;
+                clienteInfo.frete = resultado.fretes[0].valor;
+                clienteInfo.servicoCorreios = resultado.fretes[0].codigo;
+                saveClienteInfo();
+                freteCalculado = true;
+                
+                // Atualizar interface
+                const cepSection = document.querySelector('.form-group:has(#cepCheckout)');
+                cepSection.innerHTML = `
+                    <label>Frete Calculado</label>
+                    <div class="cep-info" id="cepInfo">
+                        <div>
+                            <strong>${resultado.cidade} - ${resultado.estado}</strong><br>
+                            <small>CEP: ${resultado.cep} | ${resultado.endereco}, ${resultado.bairro}</small>
+                        </div>
+                        <button type="button" class="change-cep-btn" onclick="openCepModal()">Alterar</button>
+                    </div>
+                    <div id="freteOptions"></div>`;
+                
+                // Mostrar opções de frete
+                carregarOpcoesFrete(resultado);
+                
+                // Mostrar campos de endereço completo
+                document.getElementById('enderecoCompleto').style.display = 'block';
+                document.getElementById('endereco').value = resultado.endereco;
+                document.getElementById('bairro').value = resultado.bairro;
+                
+                updateCartDisplay();
+                atualizarResumoPedido();
+                showNotification(`Frete calculado para ${resultado.cidade}-${resultado.estado}`, 'success');
+            } else {
+                cepError.textContent = resultado.error;
+                cepError.style.display = 'block';
+            }
+        }
+
+        function carregarOpcoesFrete(resultado) {
+            const freteOptions = document.getElementById('freteOptions');
+            
+            freteOptions.innerHTML = `
+                <div class="frete-options">
+                    ${resultado.fretes.map((frete, index) => `
+                        <div class="frete-option ${clienteInfo.servicoCorreios === frete.codigo ? 'selected' : ''}" 
+                             onclick="selecionarFrete('${frete.codigo}', ${frete.valor})">
+                            <div>
+                                <strong>${frete.nome}</strong>
+                                <div class="frete-details">
+                                    ${frete.prazo} • ${frete.descricao}
+                                    ${frete.detalhes ? `<br><small>${frete.detalhes}</small>` : ''}
+                                </div>
+                            </div>
+                            <div>
+                                <strong>R$ ${frete.valor.toFixed(2).replace('.', ',')}</strong>
+                            </div>
+                        </div>
+                    `).join('')}
                 </div>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="observacoes">📝 Observações</label>
-            <textarea id="observacoes" placeholder="Observações sobre o pedido, ponto de referência, etc.">${clienteInfo.observacoes}</textarea>
-        </div>
-        
-        <button class="submit-order-btn" onclick="sendWhatsAppOrder()">
-            📱 Enviar Pedido pelo WhatsApp
-        </button>
-        
-        <p style="text-align: center; margin-top: 15px; color: #666; font-size: 13px;">
-            Após enviar o pedido, você será direcionado para o WhatsApp para finalizar a compra.
-        </p>
-    `;
-    
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    toggleCart();
-}
-
-function closeCheckout() {
-    closeModal('checkoutModal');
-}
-
-function selectPayment(method) {
-    clienteInfo.pagamento = method;
-    document.querySelectorAll('.payment-option').forEach(option => {
-        option.classList.remove('active');
-    });
-    event.target.closest('.payment-option').classList.add('active');
-}
-
-function selectDelivery(type) {
-    clienteInfo.entrega = type;
-    document.querySelectorAll('.delivery-option').forEach(option => {
-        option.classList.remove('active');
-    });
-    event.target.closest('.delivery-option').classList.add('active');
-    openCheckout(); // Recarregar para atualizar valores
-}
-
-function sendWhatsAppOrder() {
-    // Coletar dados do formulário
-    clienteInfo.nome = document.getElementById('nome').value.trim();
-    clienteInfo.telefone = document.getElementById('telefone').value.trim();
-    clienteInfo.email = document.getElementById('email').value.trim();
-    clienteInfo.endereco = document.getElementById('endereco').value.trim();
-    clienteInfo.observacoes = document.getElementById('observacoes').value.trim();
-    
-    // Validação
-    if (!clienteInfo.nome || !clienteInfo.telefone || !clienteInfo.endereco) {
-        showNotification('Preencha todos os campos obrigatórios!', 'error');
-        return;
-    }
-    
-    // Validar telefone
-    const phoneRegex = /^(\d{10,11})|(\(\d{2}\)\s?\d{4,5}-\d{4})$/;
-    if (!phoneRegex.test(clienteInfo.telefone.replace(/\D/g, ''))) {
-        showNotification('Digite um telefone válido!', 'error');
-        return;
-    }
-    
-    // Calcular totais
-    const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
-    const frete = clienteInfo.entrega === 'padrao' ? 9.90 : 19.90;
-    const total = subtotal + frete;
-    
-    // Criar mensagem
-    let message = `*🛒 NOVO PEDIDO - JordanWearStore*\n\n`;
-    message += `*Cliente:* ${clienteInfo.nome}\n`;
-    message += `*Telefone:* ${clienteInfo.telefone}\n`;
-    if (clienteInfo.email) message += `*E-mail:* ${clienteInfo.email}\n`;
-    message += `*Endereço:*\n${clienteInfo.endereco}\n\n`;
-    message += `*Pagamento:* PIX\n`;
-    message += `*Entrega:* ${clienteInfo.entrega === 'expressa' ? 'Expressa (1-2 dias úteis)' : 'Padrão (3-5 dias úteis)'}\n`;
-    message += `*Frete:* R$ ${frete.toFixed(2).replace('.', ',')}\n\n`;
-    
-    message += `*ITENS DO PEDIDO:*\n`;
-    carrinho.forEach(item => {
-        message += `• ${item.quantidade}x ${item.nome} - R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}\n`;
-    });
-    
-    message += `\n*RESUMO DE VALORES:*\n`;
-    message += `Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
-    message += `Frete: R$ ${frete.toFixed(2).replace('.', ',')}\n`;
-    message += `*TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*\n`;
-    
-    if (clienteInfo.observacoes) {
-        message += `\n*Observações do cliente:*\n${clienteInfo.observacoes}\n`;
-    }
-    
-    message += `\n📅 *Data do pedido:* ${new Date().toLocaleString('pt-BR')}`;
-    message += `\n🆔 *ID do pedido:* ${Date.now().toString(36).toUpperCase()}`;
-    
-    // Atualizar estoque
-    carrinho.forEach(item => {
-        const produtoIndex = produtos.findIndex(p => p.id === item.id);
-        if (produtoIndex !== -1) {
-            produtos[produtoIndex].estoque -= item.quantidade;
+                
+                ${resultado.pesoTotal > 1000 ? `
+                    <div style="margin-top: 10px; font-size: 12px; color: #666; text-align: center;">
+                        📦 Peso total do pedido: ${(resultado.pesoTotal/1000).toFixed(1)}kg
+                    </div>
+                ` : ''}
+            `;
+            
+            freteOptions.style.display = 'block';
         }
-    });
-    
-    // Limpar carrinho
-    carrinho = [];
-    saveCart();
-    updateCartDisplay();
-    closeCheckout();
-    renderAllProducts();
-    
-    // Codificar mensagem para URL
-    const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = '555181875780'; // Número do WhatsApp
-    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
-    // Abrir WhatsApp
-    window.open(whatsappURL, '_blank');
-    
-    showNotification('Pedido enviado com sucesso! Verifique o WhatsApp.', 'success');
-    
-    // Resetar informações do cliente
-    clienteInfo = {
-        nome: '', telefone: '', email: '', endereco: '',
-        pagamento: 'pix', entrega: 'padrao', observacoes: ''
-    };
-}
 
-// ============================================
-// NOTIFICAÇÕES
-// ============================================
-
-function showNotification(message, type = 'success') {
-    // Remover notificações anteriores
-    const existingNotifications = document.querySelectorAll('.notification');
-    existingNotifications.forEach(notification => notification.remove());
-    
-    // Criar nova notificação
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    
-    let icon = '✅';
-    if (type === 'error') icon = '❌';
-    if (type === 'warning') icon = '⚠️';
-    
-    notification.innerHTML = `
-        <div class="notification-icon">${icon}</div>
-        <div>${message}</div>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Remover após 3 segundos
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => notification.remove(), 300);
+        function selecionarFrete(codigo, valor) {
+            clienteInfo.servicoCorreios = codigo;
+            clienteInfo.frete = valor;
+            saveClienteInfo();
+            
+            // Atualizar seleção visual
+            document.querySelectorAll('.frete-option').forEach(opcao => {
+                opcao.classList.remove('selected');
+            });
+            event.target.closest('.frete-option').classList.add('selected');
+            
+            updateCartDisplay();
+            atualizarResumoPedido();
+            showNotification(`Frete alterado para ${codigo === '04014' ? 'SEDEX' : 'PAC'}`, 'success');
         }
-    }, 3000);
-}
 
-// ============================================
-// FALLBACK E INICIALIZAÇÃO FINAL
-// ============================================
+        function selecionarPagamento(tipo) {
+            clienteInfo.pagamento = tipo;
+            saveClienteInfo();
+            
+            document.querySelectorAll('.payment-option').forEach(opcao => {
+                opcao.classList.remove('active');
+            });
+            event.target.closest('.payment-option').classList.add('active');
+        }
 
-// Garantir que os produtos sejam renderizados
-setTimeout(() => {
-    if (!document.getElementById('camisasProducts').innerHTML) {
-        renderAllProducts();
-    }
-}, 100);
+        function atualizarResumoPedido() {
+            const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
+            const frete = clienteInfo.frete || 9.90;
+            const total = subtotal + frete;
+            
+            const freteResumo = document.getElementById('freteResumo');
+            const totalResumo = document.getElementById('totalResumo');
+            
+            if (freteResumo) {
+                const servico = clienteInfo.servicoCorreios === '04014' ? 'SEDEX' : 'PAC';
+                freteResumo.innerHTML = `R$ ${frete.toFixed(2).replace('.', ',')} <small>(${servico})</small>`;
+            }
+            
+            if (totalResumo) totalResumo.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
 
-// Prevenir recarregamento acidental da página com carrinho não salvo
-window.addEventListener('beforeunload', function(e) {
-    if (carrinho.length > 0) {
-        saveCart();
-    }
-});
-</script>
+        function enviarPedidoWhatsApp(event) {
+            event.preventDefault();
+            
+            // Validar campos obrigatórios
+            const nome = document.getElementById('nome').value;
+            const telefone = document.getElementById('telefone').value;
+            const endereco = document.getElementById('endereco')?.value || '';
+            const numero = document.getElementById('numero')?.value || '';
+            const bairro = document.getElementById('bairro')?.value || '';
+            
+            if (!nome || !telefone || !endereco || !numero || !bairro) {
+                showNotification('Preencha todos os campos obrigatórios!', 'error');
+                return;
+            }
+            
+            // Montar mensagem do pedido
+            const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
+            const frete = clienteInfo.frete || 9.90;
+            const total = subtotal + frete;
+            
+            let mensagem = `🛍️ *NOVO PEDIDO - JORDAN STORE* 🛍️\n\n`;
+            mensagem += `*Cliente:* ${nome}\n`;
+            mensagem += `*Telefone:* ${telefone}\n`;
+            mensagem += `*E-mail:* ${clienteInfo.email || 'Não informado'}\n\n`;
+            
+            mensagem += `*📦 ENDEREÇO DE ENTREGA:*\n`;
+            mensagem += `${endereco}, ${numero}\n`;
+            if (clienteInfo.complemento) mensagem += `Complemento: ${clienteInfo.complemento}\n`;
+            mensagem += `Bairro: ${bairro}\n`;
+            mensagem += `CEP: ${clienteInfo.cep}\n`;
+            mensagem += `${clienteInfo.cidade} - ${clienteInfo.estado}\n\n`;
+            
+            mensagem += `*🛒 ITENS DO PEDIDO:*\n`;
+            carrinho.forEach(item => {
+                mensagem += `• ${item.nome} x${item.quantidade} - R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}\n`;
+            });
+            
+            mensagem += `\n*💰 RESUMO DO PEDIDO:*\n`;
+            mensagem += `Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
+            mensagem += `Frete (${clienteInfo.servicoCorreios === '04014' ? 'SEDEX' : 'PAC'}): R$ ${frete.toFixed(2).replace('.', ',')}\n`;
+            mensagem += `*TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*\n\n`;
+            
+            mensagem += `*💳 FORMA DE PAGAMENTO:* ${clienteInfo.pagamento.toUpperCase()}\n\n`;
+            
+            if (clienteInfo.observacoes) {
+                mensagem += `*📝 OBSERVAÇÕES:*\n${clienteInfo.observacoes}\n\n`;
+            }
+            
+            mensagem += `📱 *PEDIDO REALIZADO VIA SITE JORDAN STORE*`;
+            
+            // Codificar mensagem para URL
+            const mensagemCodificada = encodeURIComponent(mensagem);
+            const numeroWhatsApp = '555181875780';
+            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
+            
+            // Limpar carrinho após enviar
+            carrinho = [];
+            saveCart();
+            updateCartDisplay();
+            
+            // Fechar modais
+            closeCheckout();
+            
+            // Redirecionar para WhatsApp
+            window.open(urlWhatsApp, '_blank');
+            
+            showNotification('Pedido enviado para o WhatsApp!', 'success');
+        }
+
+        // ============================================
+        // MODAL DE CEP
+        // ============================================
+        function openCepModal() {
+            document.getElementById('cepModal').innerHTML = `
+                <div class="cep-modal-content">
+                    <h3>📍 Calcular Frete</h3>
+                    <p>Digite seu CEP para calcular o valor do frete:</p>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="cepInputModal" class="cep-input" placeholder="00000-000" maxlength="9" style="flex: 1;">
+                        <button class="calculate-frete-btn" onclick="calculateFreteFromModal()" id="btnCalcularModal">
+                            Calcular
+                        </button>
+                    </div>
+                    <div id="cepErrorModal" class="cep-error"></div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                        <p style="margin: 0; font-size: 13px; color: #666;">
+                            📦 <strong>Exemplo de valores por região:</strong><br>
+                            • Sudeste: PAC R$ 15,90-19,90 | SEDEX R$ 29,90-36,90<br>
+                            • Sul: PAC R$ 16,90-19,90 | SEDEX R$ 31,90-37,90<br>
+                            • Centro-Oeste: PAC R$ 21,90-24,90 | SEDEX R$ 40,90-46,90<br>
+                            • Nordeste: PAC R$ 20,90-24,90 | SEDEX R$ 38,90-46,90<br>
+                            • Norte: PAC R$ 26,90-32,90 | SEDEX R$ 49,90-61,90
+                        </p>
+                    </div>
+                    
+                    <button onclick="closeCepModal()" style="margin-top: 20px; width: 100%; padding: 12px; background: #95a5a6; color: white; border: none; border-radius: var(--border-radius); cursor: pointer;">
+                        Cancelar
+                    </button>
+                </div>`;
+            
+            document.getElementById('cepModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCepModal() {
+            document.getElementById('cepModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        async function calculateFreteFromModal() {
+            const cepInput = document.getElementById('cepInputModal');
+            const cepError = document.getElementById('cepErrorModal');
+            const btn = document.getElementById('btnCalcularModal');
+            const cep = cepInput.value.trim();
+            
+            if (!isValidCEP(cep)) {
+                cepError.textContent = 'Digite um CEP válido com 8 dígitos';
+                cepError.style.display = 'block';
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.innerHTML = 'Calculando... <div class="frete-loading"></div>';
+            
+            const resultado = await calcularFreteCorreios(cep);
+            
+            btn.disabled = false;
+            btn.innerHTML = 'Calcular';
+            
+            if (resultado.success) {
+                closeCepModal();
+                
+                // Atualizar informações do cliente
+                clienteInfo.cep = resultado.cep;
+                clienteInfo.cidade = resultado.cidade;
+                clienteInfo.estado = resultado.estado;
+                clienteInfo.endereco = resultado.endereco;
+                clienteInfo.bairro = resultado.bairro;
+                clienteInfo.frete = resultado.fretes[0].valor;
+                clienteInfo.servicoCorreios = resultado.fretes[0].codigo;
+                saveClienteInfo();
+                freteCalculado = true;
+                
+                updateCartDisplay();
+                
+                // Mostrar resumo dos fretes
+                const pac = resultado.fretes[0];
+                const sedex = resultado.fretes[1];
+                
+                showNotification(
+                    `📦 Frete calculado para ${resultado.cidade}-${resultado.estado}<br>
+                    PAC: R$ ${pac.valor.toFixed(2)} (${pac.prazo})<br>
+                    SEDEX: R$ ${sedex.valor.toFixed(2)} (${sedex.prazo})`,
+                    'success'
+                );
+            } else {
+                cepError.textContent = resultado.error;
+                cepError.style.display = 'block';
+            }
+        }
+
+        // ============================================
+        // FIM DO CÓDIGO
+        // ============================================
+        window.addEventListener('resize', function() {
+            updateProductsDisplay();
+        });
+
+        setTimeout(() => {
+            if (!document.getElementById('allProducts').innerHTML) {
+                updateProductsDisplay();
+            }
+        }, 100);
+
+        window.addEventListener('beforeunload', function(e) {
+            if (carrinho.length > 0) {
+                saveCart();
+            }
+        });
+    </script>
 </body>
 </html>
