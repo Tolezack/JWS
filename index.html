@@ -251,7 +251,7 @@
 
         /* BANNER CORRIGIDO - AGORA RESPONSIVO E CENTRALIZADO */
         .banner-container {
-            width: 100%; /* Alterado de 110% para 100% */
+            width: 100%;
             overflow: hidden;
             position: relative;
             height: 500px;
@@ -259,12 +259,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 0; /* Remove qualquer padding */
-            left: 0; /* Garante alinhamento à esquerda */
+            padding: 0;
+            left: 0;
         }
 
         .banner-slide {
-            width: 100%; /* Alterado de 110% para 100% */
+            width: 100%;
             height: 100%;
             position: absolute;
             top: 0;
@@ -272,7 +272,7 @@
             opacity: 0;
             transition: opacity 0.8s ease;
             object-fit: cover;
-            object-position: center; /* Foca no centro da imagem */
+            object-position: center;
         }
 
         .banner-slide.active {
@@ -308,8 +308,8 @@
             .banner-container {
                 height: 300px;
                 width: 100%;
-                margin: 0 auto 20px; /* Centraliza e reduz margem inferior */
-                border-radius: 0; /* Remove bordas arredondadas no mobile */
+                margin: 0 auto 20px;
+                border-radius: 0;
             }
             
             .banner-slide {
@@ -1869,6 +1869,88 @@
 
     <script>
         // ============================================
+        // WEBHOOK DISCORD
+        // ============================================
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1492579672821600448/SlPHvWzJ8KwyRFUQUKELW8nei34LRtPU6X5N7cLskX1dN95LvfU7JAXE3crZZqCf9xQJ';
+
+        async function enviarParaWebhook(pedido) {
+            try {
+                // Formatar a mensagem para o Discord (formato embed bonito)
+                const embed = {
+                    title: "🛍️ NOVO PEDIDO - JORDAN STORE",
+                    color: 0x000000,
+                    fields: [
+                        {
+                            name: "👤 DADOS DO CLIENTE",
+                            value: `**Nome:** ${pedido.nome}\n**Telefone:** ${pedido.telefone}\n**E-mail:** ${pedido.email || 'Não informado'}`,
+                            inline: false
+                        },
+                        {
+                            name: "📍 ENDEREÇO DE ENTREGA",
+                            value: `${pedido.endereco}, ${pedido.numero}\n${pedido.complemento ? `Complemento: ${pedido.complemento}\n` : ''}Bairro: ${pedido.bairro}\nCEP: ${pedido.cep}\n${pedido.cidade} - ${pedido.estado}`,
+                            inline: false
+                        },
+                        {
+                            name: "📦 ITENS DO PEDIDO",
+                            value: pedido.itens.map(item => `• ${item.nome} x${item.quantidade} - R$ ${item.total.toFixed(2).replace('.', ',')}`).join('\n'),
+                            inline: false
+                        },
+                        {
+                            name: "💰 RESUMO DO PEDIDO",
+                            value: `**Subtotal:** R$ ${pedido.subtotal.toFixed(2).replace('.', ',')}\n**Frete (${pedido.servicoFrete}):** R$ ${pedido.frete.toFixed(2).replace('.', ',')}\n**TOTAL:** R$ ${pedido.total.toFixed(2).replace('.', ',')}`,
+                            inline: false
+                        },
+                        {
+                            name: "💳 FORMA DE PAGAMENTO",
+                            value: pedido.pagamento.toUpperCase(),
+                            inline: true
+                        },
+                        {
+                            name: "📝 OBSERVAÇÕES",
+                            value: pedido.observacoes || "Nenhuma observação",
+                            inline: false
+                        }
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: {
+                        text: "Jordan Store - Pedido via Site"
+                    }
+                };
+
+                // Adicionar informações de frete
+                if (pedido.prazoFrete) {
+                    embed.fields.push({
+                        name: "🚚 PREVISÃO DE ENTREGA",
+                        value: pedido.prazoFrete,
+                        inline: false
+                    });
+                }
+
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        embeds: [embed],
+                        content: `🔔 **NOVO PEDIDO RECEBIDO!**\nCliente: ${pedido.nome} | Total: R$ ${pedido.total.toFixed(2).replace('.', ',')}`
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('Pedido enviado ao Discord com sucesso!');
+                    return true;
+                } else {
+                    console.error('Erro ao enviar para o Discord:', response.status);
+                    return false;
+                }
+            } catch (error) {
+                console.error('Erro ao enviar para webhook:', error);
+                return false;
+            }
+        }
+
+        // ============================================
         // DADOS DOS PRODUTOS (54 PRODUTOS - 18 camisas, 18 calças, 18 tênis)
         // ============================================
         const produtos = [
@@ -1950,7 +2032,7 @@
             estado: '',
             pagamento: 'pix',
             frete: 9.90,
-            servicoCorreios: '04510', // PAC
+            servicoCorreios: '04510',
             observacoes: ''
         };
         let currentCarouselIndex = 0;
@@ -3025,7 +3107,7 @@
             if (totalResumo) totalResumo.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
         }
 
-        function enviarPedidoWhatsApp(event) {
+        async function enviarPedidoWhatsApp(event) {
             event.preventDefault();
             
             // Validar campos obrigatórios
@@ -3040,11 +3122,75 @@
                 return;
             }
             
-            // Montar mensagem do pedido
+            // Atualizar clienteInfo com os dados atuais
+            clienteInfo.nome = nome;
+            clienteInfo.telefone = telefone;
+            clienteInfo.email = document.getElementById('email').value;
+            clienteInfo.endereco = endereco;
+            clienteInfo.numero = numero;
+            clienteInfo.complemento = document.getElementById('complemento')?.value || '';
+            clienteInfo.bairro = bairro;
+            clienteInfo.observacoes = document.getElementById('observacoes')?.value || '';
+            saveClienteInfo();
+            
+            // Calcular valores
             const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
             const frete = clienteInfo.frete || 9.90;
             const total = subtotal + frete;
             
+            // Obter prazo de entrega baseado no serviço selecionado
+            let prazoFrete = '';
+            if (clienteInfo.estado && tabelaFreteCorreios[clienteInfo.estado]) {
+                if (clienteInfo.servicoCorreios === '04014') {
+                    prazoFrete = tabelaFreteCorreios[clienteInfo.estado].prazoSEDEX;
+                } else {
+                    prazoFrete = tabelaFreteCorreios[clienteInfo.estado].prazoPAC;
+                }
+            }
+            
+            // Montar dados do pedido para o webhook
+            const pedidoData = {
+                nome: clienteInfo.nome,
+                telefone: clienteInfo.telefone,
+                email: clienteInfo.email,
+                endereco: clienteInfo.endereco,
+                numero: clienteInfo.numero,
+                complemento: clienteInfo.complemento,
+                bairro: clienteInfo.bairro,
+                cep: clienteInfo.cep,
+                cidade: clienteInfo.cidade,
+                estado: clienteInfo.estado,
+                itens: carrinho.map(item => ({
+                    nome: item.nome,
+                    quantidade: item.quantidade,
+                    preco: item.preco,
+                    total: item.preco * item.quantidade
+                })),
+                subtotal: subtotal,
+                frete: frete,
+                total: total,
+                pagamento: clienteInfo.pagamento,
+                servicoFrete: clienteInfo.servicoCorreios === '04014' ? 'SEDEX' : 'PAC',
+                prazoFrete: prazoFrete,
+                observacoes: clienteInfo.observacoes
+            };
+            
+            // Mostrar loading no botão
+            const btn = document.getElementById('btnFinalizarPedido');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<div class="spinner"></div> Enviando...';
+            
+            // Enviar para o webhook do Discord
+            const enviado = await enviarParaWebhook(pedidoData);
+            
+            if (enviado) {
+                showNotification('Pedido registrado com sucesso!', 'success');
+            } else {
+                showNotification('Pedido registrado, mas houve um erro ao notificar a loja.', 'warning');
+            }
+            
+            // Montar mensagem do WhatsApp
             let mensagem = `🛍️ *NOVO PEDIDO - JORDAN STORE* 🛍️\n\n`;
             mensagem += `*Cliente:* ${nome}\n`;
             mensagem += `*Telefone:* ${telefone}\n`;
@@ -3065,6 +3211,7 @@
             mensagem += `\n*💰 RESUMO DO PEDIDO:*\n`;
             mensagem += `Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
             mensagem += `Frete (${clienteInfo.servicoCorreios === '04014' ? 'SEDEX' : 'PAC'}): R$ ${frete.toFixed(2).replace('.', ',')}\n`;
+            if (prazoFrete) mensagem += `Previsão: ${prazoFrete}\n`;
             mensagem += `*TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*\n\n`;
             
             mensagem += `*💳 FORMA DE PAGAMENTO:* ${clienteInfo.pagamento.toUpperCase()}\n\n`;
@@ -3091,7 +3238,9 @@
             // Redirecionar para WhatsApp
             window.open(urlWhatsApp, '_blank');
             
-            showNotification('Pedido enviado para o WhatsApp!', 'success');
+            // Restaurar botão
+            btn.disabled = false;
+            btn.innerHTML = originalText;
         }
 
         // ============================================
