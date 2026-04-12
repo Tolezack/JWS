@@ -161,6 +161,7 @@
         .notification.success { background: #27ae60; }
         .notification.error { background: #e74c3c; }
         .notification.warning { background: #f39c12; }
+        .notification.info { background: #3498db; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: white; animation: spin 1s ease-in-out infinite; }
         footer { background: var(--primary-color); color: white; padding: 40px 20px; text-align: center; margin-top: 50px; }
@@ -313,14 +314,23 @@
 
         async function atualizarEstoqueAposCompra(itensComprados) {
             const produtosAtualizados = JSON.parse(JSON.stringify(produtos));
+            let alterado = false;
             
             for (const item of itensComprados) {
                 const produtoIndex = produtosAtualizados.findIndex(p => p.id === item.id);
                 if (produtoIndex !== -1) {
                     const novoEstoque = produtosAtualizados[produtoIndex].estoque - item.quantidade;
                     produtosAtualizados[produtoIndex].estoque = Math.max(0, novoEstoque);
-                    console.log(`📦 ${item.nome}: estoque ${produtos[produtoIndex].estoque} → ${produtosAtualizados[produtoIndex].estoque}`);
+                    console.log(`📦 ${item.nome} (${item.id}): estoque ${produtos[produtoIndex].estoque} → ${produtosAtualizados[produtoIndex].estoque}`);
+                    alterado = true;
+                } else {
+                    console.warn(`⚠️ Produto não encontrado: ${item.id}`);
                 }
+            }
+            
+            if (!alterado) {
+                console.warn('Nenhum produto foi atualizado');
+                return false;
             }
             
             produtos = produtosAtualizados;
@@ -346,7 +356,15 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    produtos = data.produtos || data;
+                    // Verifica se os produtos estão dentro de um objeto 'produtos' ou é o array diretamente
+                    if (data.produtos && Array.isArray(data.produtos)) {
+                        produtos = data.produtos;
+                    } else if (Array.isArray(data)) {
+                        produtos = data;
+                    } else {
+                        console.error('Formato de dados inválido:', data);
+                        throw new Error('Formato de dados inválido');
+                    }
                     
                     produtos = produtos.map(p => ({
                         ...p,
@@ -438,20 +456,35 @@
 
         function addToCart(productId) {
             const produto = produtos.find(p => p.id === productId);
-            if (!produto || produto.estoque === 0) { showNotification('Produto esgotado!', 'error'); return; }
+            if (!produto) { showNotification('Produto não encontrado!', 'error'); return; }
+            if (produto.estoque === 0) { showNotification('Produto esgotado!', 'error'); return; }
             const index = carrinho.findIndex(i => i.id === productId);
             if (index > -1) {
-                if (carrinho[index].quantidade < produto.estoque) { carrinho[index].quantidade++; }
-                else { showNotification('Quantidade máxima em estoque!', 'warning'); return; }
-            } else { carrinho.push({ id: productId, nome: produto.nome, preco: produto.preco, quantidade: 1, imagem: produto.imagem }); }
+                if (carrinho[index].quantidade < produto.estoque) { 
+                    carrinho[index].quantidade++; 
+                } else { 
+                    showNotification('Quantidade máxima em estoque!', 'warning'); 
+                    return; 
+                }
+            } else { 
+                carrinho.push({ id: productId, nome: produto.nome, preco: produto.preco, quantidade: 1, imagem: produto.imagem }); 
+            }
             saveCart(); updateCartDisplay(); showNotification(`${produto.nome} adicionado!`, 'success');
         }
 
         function saveCart() { localStorage.setItem('jordanstore_cart', JSON.stringify(carrinho)); }
         
         function loadCart() {
-            try { const saved = localStorage.getItem('jordanstore_cart'); if (saved) { carrinho = JSON.parse(saved); carrinho = carrinho.filter(item => produtos.find(p => p.id === item.id)); saveCart(); } }
-            catch(e) { carrinho = []; }
+            try { 
+                const saved = localStorage.getItem('jordanstore_cart'); 
+                if (saved) { 
+                    carrinho = JSON.parse(saved); 
+                    carrinho = carrinho.filter(item => produtos.find(p => p.id === item.id)); 
+                    saveCart(); 
+                } 
+            } catch(e) { 
+                carrinho = []; 
+            }
         }
 
         function updateCartDisplay() {
@@ -473,7 +506,11 @@
             document.getElementById('cartShipping').textContent = `R$ ${frete.toFixed(2).replace('.', ',')}`;
             document.getElementById('cartTotal').textContent = `R$ ${(subtotal + frete).toFixed(2).replace('.', ',')}`;
             let html = '';
-            carrinho.forEach(item => { html += `<div class="cart-item"><img src="${item.imagem}" class="cart-item-image" onerror="this.src='https://via.placeholder.com/70'"><div class="cart-item-details"><div class="cart-item-name">${item.nome}</div><div class="cart-item-price">R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</div><div class="cart-item-actions"><div class="quantity-control"><button class="quantity-btn" onclick="updateCartItem('${item.id}', -1)">-</button><span>${item.quantidade}</span><button class="quantity-btn" onclick="updateCartItem('${item.id}', 1)">+</button></div><button class="remove-item" onclick="removeFromCart('${item.id}')">Remover</button></div></div></div>`; });
+            carrinho.forEach(item => { 
+                const produtoAtual = produtos.find(p => p.id === item.id);
+                const maxEstoque = produtoAtual ? produtoAtual.estoque : 0;
+                html += `<div class="cart-item"><img src="${item.imagem}" class="cart-item-image" onerror="this.src='https://via.placeholder.com/70'"><div class="cart-item-details"><div class="cart-item-name">${item.nome}</div><div class="cart-item-price">R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</div><div class="cart-item-actions"><div class="quantity-control"><button class="quantity-btn" onclick="updateCartItem('${item.id}', -1)">-</button><span>${item.quantidade}</span><button class="quantity-btn" onclick="updateCartItem('${item.id}', 1)" ${item.quantidade >= maxEstoque ? 'disabled style="opacity:0.5"' : ''}>+</button></div><button class="remove-item" onclick="removeFromCart('${item.id}')">Remover</button></div></div></div>`; 
+            });
             document.getElementById('cartItems').innerHTML = html;
         }
 
@@ -482,9 +519,14 @@
             if (index === -1) return;
             const produto = produtos.find(p => p.id === id);
             const novaQtd = carrinho[index].quantidade + change;
-            if (novaQtd < 1) { carrinho.splice(index, 1); }
-            else if (novaQtd <= produto.estoque) { carrinho[index].quantidade = novaQtd; }
-            else { showNotification(`Estoque insuficiente! Disponível: ${produto.estoque}`, 'warning'); return; }
+            if (novaQtd < 1) { 
+                carrinho.splice(index, 1); 
+            } else if (novaQtd <= produto.estoque) { 
+                carrinho[index].quantidade = novaQtd; 
+            } else { 
+                showNotification(`Estoque insuficiente! Disponível: ${produto.estoque}`, 'warning'); 
+                return; 
+            }
             saveCart(); updateCartDisplay();
         }
 
@@ -532,47 +574,160 @@
 
         async function finalizarPedido(event) {
             event.preventDefault();
-            const nome = document.getElementById('nome').value;
-            const telefone = document.getElementById('telefone').value;
+            
+            // Validação dos campos
+            const nome = document.getElementById('nome')?.value;
+            const telefone = document.getElementById('telefone')?.value;
             const endereco = document.getElementById('endereco')?.value;
             const numero = document.getElementById('numero')?.value;
-            if (!nome || !telefone || !endereco || !numero) { showNotification('Preencha todos os campos obrigatórios!', 'error'); return; }
-            clienteInfo.nome = nome; clienteInfo.telefone = telefone; clienteInfo.endereco = endereco; clienteInfo.numero = numero;
-            clienteInfo.complemento = document.getElementById('complemento')?.value || ''; clienteInfo.bairro = document.getElementById('bairro')?.value || '';
+            
+            if (!nome || !telefone || !endereco || !numero) { 
+                showNotification('Preencha todos os campos obrigatórios!', 'error'); 
+                return; 
+            }
+            
+            clienteInfo.nome = nome; 
+            clienteInfo.telefone = telefone; 
+            clienteInfo.endereco = endereco; 
+            clienteInfo.numero = numero;
+            clienteInfo.complemento = document.getElementById('complemento')?.value || ''; 
+            clienteInfo.bairro = document.getElementById('bairro')?.value || '';
             saveClienteInfo();
+            
+            // Verifica se os itens ainda estão disponíveis
+            for (const item of carrinho) {
+                const produtoAtual = produtos.find(p => p.id === item.id);
+                if (!produtoAtual || produtoAtual.estoque < item.quantidade) {
+                    showNotification(`Estoque insuficiente para ${item.nome}! Disponível: ${produtoAtual?.estoque || 0}`, 'error');
+                    return;
+                }
+            }
+            
             const subtotal = carrinho.reduce((s,i) => s + (i.preco*i.quantidade), 0);
             const total = subtotal + (clienteInfo.frete || 9.90);
             
-            const embed = { title: "🛍️ NOVO PEDIDO - JORDAN STORE", color: 0x000000, fields: [{ name: "👤 CLIENTE", value: `**Nome:** ${nome}\n**Telefone:** ${telefone}\n**E-mail:** ${clienteInfo.email || 'Não informado'}`, inline: false }, { name: "📍 ENDEREÇO", value: `${endereco}, ${numero}\n${clienteInfo.bairro}\nCEP: ${clienteInfo.cep}\n${clienteInfo.cidade} - ${clienteInfo.estado}`, inline: false }, { name: "📦 ITENS", value: carrinho.map(i => `• ${i.nome} x${i.quantidade} - R$ ${(i.preco*i.quantidade).toFixed(2)}`).join('\n'), inline: false }, { name: "💰 TOTAL", value: `**Subtotal:** R$ ${subtotal.toFixed(2)}\n**Frete:** R$ ${(clienteInfo.frete||9.90).toFixed(2)}\n**TOTAL:** R$ ${total.toFixed(2)}`, inline: false }, { name: "💳 PAGAMENTO", value: "PIX", inline: true }], timestamp: new Date().toISOString() };
-            try { await fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ embeds: [embed], content: `🔔 **NOVO PEDIDO!** ${nome} - R$ ${total.toFixed(2)}` }) }); } catch(e) { console.error('Webhook error:', e); }
+            // Envia para o Discord
+            const embed = { 
+                title: "🛍️ NOVO PEDIDO - JORDAN STORE", 
+                color: 0x000000, 
+                fields: [
+                    { name: "👤 CLIENTE", value: `**Nome:** ${nome}\n**Telefone:** ${telefone}\n**E-mail:** ${clienteInfo.email || 'Não informado'}`, inline: false }, 
+                    { name: "📍 ENDEREÇO", value: `${endereco}, ${numero}\n${clienteInfo.bairro}\nCEP: ${clienteInfo.cep}\n${clienteInfo.cidade} - ${clienteInfo.estado}`, inline: false }, 
+                    { name: "📦 ITENS", value: carrinho.map(i => `• ${i.nome} x${i.quantidade} - R$ ${(i.preco*i.quantidade).toFixed(2)}`).join('\n'), inline: false }, 
+                    { name: "💰 TOTAL", value: `**Subtotal:** R$ ${subtotal.toFixed(2)}\n**Frete:** R$ ${(clienteInfo.frete||9.90).toFixed(2)}\n**TOTAL:** R$ ${total.toFixed(2)}`, inline: false }, 
+                    { name: "💳 PAGAMENTO", value: "PIX", inline: true }
+                ], 
+                timestamp: new Date().toISOString() 
+            };
+            
+            try { 
+                await fetch(WEBHOOK_URL, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify({ embeds: [embed], content: `🔔 **NOVO PEDIDO!** ${nome} - R$ ${total.toFixed(2)}` }) 
+                }); 
+            } catch(e) { 
+                console.error('Webhook error:', e); 
+            }
             
             showNotification('🔄 Atualizando estoque no GitHub...', 'info');
-            const itensComprados = carrinho.map(item => ({ id: item.id, nome: item.nome, quantidade: item.quantidade }));
+            
+            // Prepara os itens comprados para atualização
+            const itensComprados = carrinho.map(item => ({ 
+                id: item.id, 
+                nome: item.nome, 
+                quantidade: item.quantidade 
+            }));
+            
+            // Atualiza o estoque no GitHub
             const atualizado = await atualizarEstoqueAposCompra(itensComprados);
             
             if (atualizado) {
+                // Recarrega os produtos para garantir que a UI esteja atualizada
                 await carregarProdutos();
                 showNotification('✅ Pedido finalizado e estoque atualizado!', 'success');
             } else {
                 showNotification('⚠️ Pedido registrado, mas estoque não sincronizado', 'warning');
             }
             
+            // Prepara mensagem do WhatsApp
             let msg = `🛍️ *NOVO PEDIDO - JORDAN STORE* 🛍️\n\n*Cliente:* ${nome}\n*Telefone:* ${telefone}\n\n*ENDEREÇO:*\n${endereco}, ${numero}\n${clienteInfo.bairro}\nCEP: ${clienteInfo.cep}\n${clienteInfo.cidade}-${clienteInfo.estado}\n\n*ITENS:*\n${carrinho.map(i => `• ${i.nome} x${i.quantidade} - R$ ${(i.preco*i.quantidade).toFixed(2)}`).join('\n')}\n\n*TOTAL:* R$ ${total.toFixed(2)}\n*PAGAMENTO:* PIX`;
-            carrinho = []; saveCart(); updateCartDisplay(); closeCheckout();
+            
+            // Limpa o carrinho
+            carrinho = []; 
+            saveCart(); 
+            updateCartDisplay(); 
+            closeCheckout();
+            
+            // Abre o WhatsApp
             window.open(`https://wa.me/555181875780?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function loadClienteInfo() { try { const saved = localStorage.getItem('jordanstore_cliente'); if (saved) clienteInfo = { ...clienteInfo, ...JSON.parse(saved) }; } catch(e) {} }
-        function saveClienteInfo() { localStorage.setItem('jordanstore_cliente', JSON.stringify(clienteInfo)); }
-        function showNotification(msg, type = 'success') { const n = document.createElement('div'); n.className = `notification ${type}`; n.innerHTML = `<div>${type === 'success' ? '✅' : type === 'error' ? '❌' : '⚠️'} ${msg}</div>`; document.body.appendChild(n); setTimeout(() => n.remove(), 3000); }
-        function setupEventListeners() { document.addEventListener('click', (e) => { const buy = e.target.closest('.buy-btn'); const details = e.target.closest('.details-btn'); if (buy) addToCart(buy.dataset.id); if (details) showProductDetails(details.dataset.id); }); }
-        function showProductDetails(id) { const p = produtos.find(p => p.id === id); if (!p) return; const modal = document.getElementById('detailsModal'); modal.innerHTML = `<div class="details-content"><button class="close-modal" onclick="closeModal('detailsModal')">×</button><div style="padding:30px"><h2>${p.nome}</h2><div style="font-size:28px;font-weight:bold;margin:20px 0">R$ ${p.preco.toFixed(2).replace('.',',')}</div><p>${p.descricao || 'Sem descrição'}</p><p style="margin-top:15px"><strong>Estoque:</strong> ${p.estoque} unidades</p>${p.estoque > 0 ? `<button onclick="addToCart('${p.id}');closeModal('detailsModal')" style="width:100%;padding:16px;background:#000;color:#fff;border:none;border-radius:12px;margin-top:20px;cursor:pointer">🛒 Adicionar ao Carrinho</button>` : `<button disabled style="width:100%;padding:16px;background:#bdc3c7;color:#fff;border:none;border-radius:12px;margin-top:20px;cursor:not-allowed">🔴 Produto Esgotado</button>`}</div></div>`; modal.classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function startBannerRotation() { let current = 0; const banners = document.querySelectorAll('.banner-slide'); const dots = document.querySelectorAll('.banner-dot'); setInterval(() => { current = (current + 1) % banners.length; banners.forEach((b, i) => b.classList.toggle('active', i === current)); dots.forEach((d, i) => d.classList.toggle('active', i === current)); }, 5000); }
-        function goToBannerSlide(index) { const banners = document.querySelectorAll('.banner-slide'); const dots = document.querySelectorAll('.banner-dot'); banners.forEach((b, i) => b.classList.toggle('active', i === index)); dots.forEach((d, i) => d.classList.toggle('active', i === index)); }
-        function toggleSidebar() { document.getElementById('sidebarMenu').classList.toggle('active'); document.querySelector('.sidebar-overlay').classList.toggle('active'); }
+        function loadClienteInfo() { 
+            try { 
+                const saved = localStorage.getItem('jordanstore_cliente'); 
+                if (saved) clienteInfo = { ...clienteInfo, ...JSON.parse(saved) }; 
+            } catch(e) {} 
+        }
         
-        document.addEventListener('DOMContentLoaded', () => { carregarProdutos(); });
+        function saveClienteInfo() { 
+            localStorage.setItem('jordanstore_cliente', JSON.stringify(clienteInfo)); 
+        }
+        
+        function showNotification(msg, type = 'success') { 
+            const n = document.createElement('div'); 
+            n.className = `notification ${type}`; 
+            n.innerHTML = `<div>${type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️'} ${msg}</div>`; 
+            document.body.appendChild(n); 
+            setTimeout(() => n.remove(), 3000); 
+        }
+        
+        function setupEventListeners() { 
+            document.addEventListener('click', (e) => { 
+                const buy = e.target.closest('.buy-btn'); 
+                const details = e.target.closest('.details-btn'); 
+                if (buy) addToCart(buy.dataset.id); 
+                if (details) showProductDetails(details.dataset.id); 
+            }); 
+        }
+        
+        function showProductDetails(id) { 
+            const p = produtos.find(p => p.id === id); 
+            if (!p) return; 
+            const modal = document.getElementById('detailsModal'); 
+            modal.innerHTML = `<div class="details-content"><button class="close-modal" onclick="closeModal('detailsModal')">×</button><div style="padding:30px"><h2>${p.nome}</h2><div style="font-size:28px;font-weight:bold;margin:20px 0">R$ ${p.preco.toFixed(2).replace('.',',')}</div><p>${p.descricao || 'Sem descrição'}</p><p style="margin-top:15px"><strong>Estoque:</strong> ${p.estoque} unidades</p>${p.estoque > 0 ? `<button onclick="addToCart('${p.id}');closeModal('detailsModal')" style="width:100%;padding:16px;background:#000;color:#fff;border:none;border-radius:12px;margin-top:20px;cursor:pointer">🛒 Adicionar ao Carrinho</button>` : `<button disabled style="width:100%;padding:16px;background:#bdc3c7;color:#fff;border:none;border-radius:12px;margin-top:20px;cursor:not-allowed">🔴 Produto Esgotado</button>`}</div></div>`; 
+            modal.classList.add('active'); 
+        }
+        
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        
+        function startBannerRotation() { 
+            let current = 0; 
+            const banners = document.querySelectorAll('.banner-slide'); 
+            const dots = document.querySelectorAll('.banner-dot'); 
+            setInterval(() => { 
+                current = (current + 1) % banners.length; 
+                banners.forEach((b, i) => b.classList.toggle('active', i === current)); 
+                dots.forEach((d, i) => d.classList.toggle('active', i === current)); 
+            }, 5000); 
+        }
+        
+        function goToBannerSlide(index) { 
+            const banners = document.querySelectorAll('.banner-slide'); 
+            const dots = document.querySelectorAll('.banner-dot'); 
+            banners.forEach((b, i) => b.classList.toggle('active', i === index)); 
+            dots.forEach((d, i) => d.classList.toggle('active', i === index)); 
+        }
+        
+        function toggleSidebar() { 
+            document.getElementById('sidebarMenu').classList.toggle('active'); 
+            document.querySelector('.sidebar-overlay').classList.toggle('active'); 
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => { 
+            carregarProdutos(); 
+        });
     </script>
 </body>
 </html>
