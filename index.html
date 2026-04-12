@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jordan Store - Loja Oficial de Roupas e Tênis Jordan</title>
-    <meta name="description" content="Loja oficial de camisas, calças e tênis Jordan. Compre online com frete calculado por CEP e entrega para todo Brasil.">
+    <title>Jordan Store - Loja Oficial com Atualização de Estoque</title>
+    <meta name="description" content="Loja oficial de camisas, calças e tênis Jordan. Estoque atualizado em tempo real.">
     <style>
+        /* [MANTENHA TODOS OS ESTILOS EXISTENTES EXATAMENTE IGUAIS] */
         :root {
             --primary-color: #000000;
             --secondary-color: #e53935;
@@ -297,15 +298,10 @@
         }
 
         @media (max-width: 768px) {
-            .banner-container {
-                height: 300px;
-            }
+            .banner-container { height: 300px; }
         }
-
         @media (max-width: 480px) {
-            .banner-container {
-                height: 200px;
-            }
+            .banner-container { height: 200px; }
         }
 
         /* HOME SECTION */
@@ -390,7 +386,7 @@
             text-align: center;
         }
 
-        /* TABS DE CATEGORIAS */
+        /* TABS */
         .categories-tabs {
             display: flex;
             justify-content: center;
@@ -427,9 +423,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .tab-icon {
-            font-size: 20px;
-        }
+        .tab-icon { font-size: 20px; }
 
         /* FILTROS */
         .filters {
@@ -579,25 +573,10 @@
             flex-shrink: 0;
         }
 
-        .stock-high {
-            background: #e8f6ef;
-            color: #27ae60;
-        }
-
-        .stock-medium {
-            background: #fef9e7;
-            color: #f39c12;
-        }
-
-        .stock-low {
-            background: #fdedec;
-            color: #e74c3c;
-        }
-
-        .stock-out {
-            background: #f2f3f4;
-            color: #7f8c8d;
-        }
+        .stock-high { background: #e8f6ef; color: #27ae60; }
+        .stock-medium { background: #fef9e7; color: #f39c12; }
+        .stock-low { background: #fdedec; color: #e74c3c; }
+        .stock-out { background: #f2f3f4; color: #7f8c8d; }
 
         .product-buttons {
             display: flex;
@@ -626,22 +605,18 @@
             background: var(--primary-color);
             color: white;
         }
-
         .buy-btn:hover {
             background: var(--dark-gray);
             transform: translateY(-2px);
         }
-
         .details-btn {
             background: #f0f0f0;
             color: var(--text-color);
         }
-
         .details-btn:hover {
             background: #e0e0e0;
             transform: translateY(-2px);
         }
-
         .disabled-btn {
             background: #bdc3c7;
             color: white;
@@ -663,16 +638,11 @@
             padding: 20px;
             animation: fadeIn 0.3s ease;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
-        .details-modal.active {
-            display: flex;
-        }
-
+        .details-modal.active { display: flex; }
         .details-content {
             background: white;
             border-radius: 16px;
@@ -682,18 +652,10 @@
             overflow-y: auto;
             animation: slideUp 0.4s ease;
         }
-
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         .close-modal {
             position: absolute;
             top: 15px;
@@ -712,7 +674,6 @@
             z-index: 10;
             transition: var(--transition);
         }
-
         .close-modal:hover {
             background: rgba(0, 0, 0, 0.9);
             transform: rotate(90deg);
@@ -733,11 +694,7 @@
             flex-direction: column;
             box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
         }
-
-        .cart-modal.active {
-            right: 0;
-        }
-
+        .cart-modal.active { right: 0; }
         .cart-header {
             padding: 20px;
             background: var(--primary-color);
@@ -746,14 +703,12 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .cart-header h3 {
             font-size: 18px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .cart-close {
             background: none;
             border: none;
@@ -762,29 +717,22 @@
             cursor: pointer;
             transition: var(--transition);
         }
-
-        .cart-close:hover {
-            transform: scale(1.1);
-        }
-
+        .cart-close:hover { transform: scale(1.1); }
         .cart-items {
             flex: 1;
             overflow-y: auto;
             padding: 20px;
         }
-
         .empty-cart {
             text-align: center;
             padding: 40px 20px;
             color: #666;
         }
-
         .empty-cart div {
             font-size: 50px;
             margin-bottom: 15px;
             color: #ddd;
         }
-
         .cart-item {
             display: flex;
             gap: 15px;
@@ -792,11 +740,7 @@
             border-bottom: 1px solid #eee;
             align-items: center;
         }
-
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-
+        .cart-item:last-child { border-bottom: none; }
         .cart-item-image {
             width: 70px;
             height: 70px;
@@ -804,31 +748,24 @@
             border-radius: 8px;
             flex-shrink: 0;
         }
-
-        .cart-item-details {
-            flex: 1;
-        }
-
+        .cart-item-details { flex: 1; }
         .cart-item-name {
             font-weight: 600;
             font-size: 14px;
             margin-bottom: 5px;
             line-height: 1.4;
         }
-
         .cart-item-price {
             font-weight: bold;
             color: var(--primary-color);
             font-size: 14px;
         }
-
         .cart-item-actions {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-top: 8px;
         }
-
         .quantity-control {
             display: flex;
             align-items: center;
@@ -837,7 +774,6 @@
             padding: 4px 10px;
             border-radius: 20px;
         }
-
         .quantity-btn {
             width: 26px;
             height: 26px;
@@ -853,12 +789,10 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: var(--transition);
         }
-
         .quantity-btn:hover {
             background: var(--primary-color);
             color: white;
         }
-
         .remove-item {
             background: none;
             border: none;
@@ -869,21 +803,13 @@
             border-radius: 5px;
             transition: var(--transition);
         }
-
-        .remove-item:hover {
-            background: #ffebee;
-        }
-
+        .remove-item:hover { background: #ffebee; }
         .cart-footer {
             padding: 20px;
             border-top: 2px solid #f0f0f0;
             background: #fafafa;
         }
-
-        .cart-summary {
-            margin-bottom: 20px;
-        }
-
+        .cart-summary { margin-bottom: 20px; }
         .summary-row {
             display: flex;
             justify-content: space-between;
@@ -891,7 +817,6 @@
             font-size: 14px;
             color: #555;
         }
-
         .summary-row.total {
             font-size: 18px;
             font-weight: bold;
@@ -900,7 +825,6 @@
             padding-top: 10px;
             border-top: 1px solid #eee;
         }
-
         .checkout-button {
             width: 100%;
             padding: 16px;
@@ -917,13 +841,11 @@
             justify-content: center;
             gap: 10px;
         }
-
         .checkout-button:hover {
             background: #1da851;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
         }
-
         .clear-cart-btn {
             width: 100%;
             padding: 12px;
@@ -941,10 +863,7 @@
             justify-content: center;
             gap: 8px;
         }
-
-        .clear-cart-btn:hover {
-            background: #7f8c8d;
-        }
+        .clear-cart-btn:hover { background: #7f8c8d; }
 
         /* CHECKOUT MODAL */
         .checkout-modal {
@@ -960,11 +879,7 @@
             align-items: center;
             padding: 20px;
         }
-
-        .checkout-modal.active {
-            display: flex;
-        }
-
+        .checkout-modal.active { display: flex; }
         .checkout-container {
             background: white;
             border-radius: 16px;
@@ -974,7 +889,6 @@
             overflow-y: auto;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
-
         .checkout-header {
             padding: 20px;
             background: var(--primary-color);
@@ -987,7 +901,6 @@
             top: 0;
             z-index: 1;
         }
-
         .checkout-close {
             background: none;
             border: none;
@@ -996,19 +909,9 @@
             cursor: pointer;
             transition: var(--transition);
         }
-
-        .checkout-close:hover {
-            transform: scale(1.1);
-        }
-
-        .checkout-form {
-            padding: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
+        .checkout-close:hover { transform: scale(1.1); }
+        .checkout-form { padding: 25px; }
+        .form-group { margin-bottom: 20px; }
         .form-group label {
             display: block;
             margin-bottom: 8px;
@@ -1016,10 +919,7 @@
             color: var(--text-color);
             font-size: 14px;
         }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 14px;
             border: 2px solid #e0e0e0;
@@ -1028,20 +928,16 @@
             transition: var(--transition);
             background: white;
         }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
         }
-
         .cep-form {
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
         }
-
         .cep-input {
             flex: 1;
             padding: 12px;
@@ -1049,7 +945,6 @@
             border-radius: var(--border-radius);
             font-size: 14px;
         }
-
         .calculate-frete-btn {
             padding: 12px 20px;
             background: var(--primary-color);
@@ -1061,11 +956,7 @@
             transition: var(--transition);
             white-space: nowrap;
         }
-
-        .calculate-frete-btn:hover {
-            background: var(--dark-gray);
-        }
-
+        .calculate-frete-btn:hover { background: var(--dark-gray); }
         .frete-options {
             margin-top: 15px;
             padding: 15px;
@@ -1073,7 +964,6 @@
             border-radius: var(--border-radius);
             border: 2px solid #e0e0e0;
         }
-
         .frete-option {
             padding: 12px;
             margin-bottom: 8px;
@@ -1085,36 +975,11 @@
             justify-content: space-between;
             align-items: center;
         }
-
-        .frete-option:hover {
-            border-color: var(--primary-color);
-        }
-
+        .frete-option:hover { border-color: var(--primary-color); }
         .frete-option.selected {
             border-color: var(--accent-color);
             background: rgba(37, 211, 102, 0.05);
         }
-
-        .cep-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background: #e8f6ef;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .change-cep-btn {
-            background: none;
-            border: none;
-            color: var(--primary-color);
-            cursor: pointer;
-            font-size: 13px;
-            text-decoration: underline;
-        }
-
         .payment-option {
             padding: 15px;
             border: 2px solid #e0e0e0;
@@ -1125,31 +990,23 @@
             align-items: center;
             gap: 12px;
         }
-
         .payment-option.active {
             border-color: var(--accent-color);
             background: rgba(37, 211, 102, 0.05);
         }
-
         .order-summary {
             background: #f8f9fa;
             padding: 20px;
             border-radius: var(--border-radius);
             margin: 20px 0;
         }
-
-        .order-summary h4 {
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
+        .order-summary h4 { margin-bottom: 15px; color: var(--text-color); }
         .order-item {
             display: flex;
             justify-content: space-between;
             margin-bottom: 8px;
             font-size: 14px;
         }
-
         .order-total {
             display: flex;
             justify-content: space-between;
@@ -1160,7 +1017,6 @@
             border-top: 2px solid #ddd;
             color: var(--primary-color);
         }
-
         .submit-order-btn {
             width: 100%;
             padding: 16px;
@@ -1178,7 +1034,6 @@
             gap: 10px;
             margin-top: 20px;
         }
-
         .submit-order-btn:hover {
             background: #1da851;
             transform: translateY(-2px);
@@ -1201,34 +1056,22 @@
             gap: 12px;
             max-width: 350px;
         }
-
         @keyframes slideInRight {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-
         @keyframes slideOutRight {
             from { transform: translateX(0); opacity: 1; }
             to { transform: translateX(100%); opacity: 0; }
         }
-
-        .notification.success {
-            background: #27ae60;
-        }
-
-        .notification.error {
-            background: #e74c3c;
-        }
-
-        .notification.warning {
-            background: #f39c12;
-        }
+        .notification.success { background: #27ae60; }
+        .notification.error { background: #e74c3c; }
+        .notification.warning { background: #f39c12; }
 
         /* SPINNER */
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
         .spinner {
             display: inline-block;
             width: 20px;
@@ -1247,23 +1090,14 @@
             text-align: center;
             margin-top: 50px;
         }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        .footer-content { max-width: 1200px; margin: 0 auto; }
         .footer-logo {
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
         }
-
-        .footer-logo span {
-            color: var(--secondary-color);
-        }
-
+        .footer-logo span { color: var(--secondary-color); }
         .footer-text {
             color: #bbb;
             margin-bottom: 30px;
@@ -1272,7 +1106,6 @@
             margin-right: auto;
             text-align: center;
         }
-
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 20px;
@@ -1281,66 +1114,25 @@
             text-align: center;
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
-            header {
-                padding: 12px 16px 12px 70px;
-            }
-            .logo-img {
-                height: 35px;
-            }
-            .hamburger-menu {
-                top: 6px;
-                left: 15px;
-                width: 45px;
-                height: 45px;
-            }
-            .cart-icon {
-                right: 16px;
-            }
-            .sidebar-menu {
-                width: 280px;
-            }
-            .home-intro h1 {
-                font-size: 28px;
-            }
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            .product-card {
-                height: auto;
-                min-height: 380px;
-            }
-            .product-image-container {
-                height: 180px;
-            }
+            header { padding: 12px 16px 12px 70px; }
+            .logo-img { height: 35px; }
+            .hamburger-menu { top: 6px; left: 15px; width: 45px; height: 45px; }
+            .cart-icon { right: 16px; }
+            .sidebar-menu { width: 280px; }
+            .home-intro h1 { font-size: 28px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .product-card { height: auto; min-height: 380px; }
+            .product-image-container { height: 180px; }
         }
-
         @media (max-width: 480px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-                padding: 8px;
-            }
-            .product-card {
-                min-height: 340px;
-            }
-            .product-image-container {
-                height: 150px;
-            }
-            .product-name {
-                font-size: 13px;
-            }
-            .product-price {
-                font-size: 15px;
-            }
-            .filters {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .cep-form {
-                flex-direction: column;
-            }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 8px; }
+            .product-card { min-height: 340px; }
+            .product-image-container { height: 150px; }
+            .product-name { font-size: 13px; }
+            .product-price { font-size: 15px; }
+            .filters { flex-direction: column; align-items: stretch; }
+            .cep-form { flex-direction: column; }
         }
     </style>
 </head>
@@ -1409,45 +1201,17 @@
         </div>
 
         <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🚚</div>
-                <h3>Envio Rápido!</h3>
-                <p>Realizamos o envio do seu produto em até 24hrs!</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💳</div>
-                <h3>Formas de Pagamentos</h3>
-                <p>Somente Pix.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <h3>Compra segura</h3>
-                <p>Compra 100% segura e seus dados protegidos.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">↩️</div>
-                <h3>Trocas e Devoluções</h3>
-                <p>Não realizamos trocas, e nem Devoluções.</p>
-            </div>
+            <div class="feature-card"><div class="feature-icon">🚚</div><h3>Envio Rápido!</h3><p>Realizamos o envio do seu produto em até 24hrs!</p></div>
+            <div class="feature-card"><div class="feature-icon">💳</div><h3>Formas de Pagamentos</h3><p>Somente Pix.</p></div>
+            <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Compra segura</h3><p>Compra 100% segura e seus dados protegidos.</p></div>
+            <div class="feature-card"><div class="feature-icon">↩️</div><h3>Trocas e Devoluções</h3><p>Não realizamos trocas, e nem Devoluções.</p></div>
         </div>
 
         <div class="categories-tabs" id="categoryTabs">
-            <button class="tab-btn active" onclick="filterByCategory('all')">
-                <span class="tab-icon">🏠</span>
-                <span>Todos</span>
-            </button>
-            <button class="tab-btn" onclick="filterByCategory('camisas')">
-                <span class="tab-icon">👕</span>
-                <span>Camisas</span>
-            </button>
-            <button class="tab-btn" onclick="filterByCategory('calcas')">
-                <span class="tab-icon">👖</span>
-                <span>Calças</span>
-            </button>
-            <button class="tab-btn" onclick="filterByCategory('tenis')">
-                <span class="tab-icon">👟</span>
-                <span>Tênis</span>
-            </button>
+            <button class="tab-btn active" onclick="filterByCategory('all')"><span class="tab-icon">🏠</span><span>Todos</span></button>
+            <button class="tab-btn" onclick="filterByCategory('camisas')"><span class="tab-icon">👕</span><span>Camisas</span></button>
+            <button class="tab-btn" onclick="filterByCategory('calcas')"><span class="tab-icon">👖</span><span>Calças</span></button>
+            <button class="tab-btn" onclick="filterByCategory('tenis')"><span class="tab-icon">👟</span><span>Tênis</span></button>
         </div>
 
         <div class="filters">
@@ -1476,61 +1240,32 @@
         <div class="footer-content">
             <div class="footer-logo">Jordan<span>Store</span></div>
             <p class="footer-text">Loja oficial de roupas e tênis Jordan. Oferecemos as melhores camisas, calças e tênis com qualidade premium e estilo inigualável. Entrega para todo Brasil.</p>
-            <div class="footer-bottom">
-                &copy; 2024 Jordan Store. Todos os direitos reservados. | 📱 WhatsApp: (51) 8187-5780
-            </div>
+            <div class="footer-bottom">&copy; 2024 Jordan Store. Todos os direitos reservados. | 📱 WhatsApp: (51) 8187-5780</div>
         </div>
     </footer>
 
     <div class="details-modal" id="detailsModal"></div>
 
     <div class="cart-modal" id="cartModal">
-        <div class="cart-header">
-            <h3>🛒 Meu Carrinho</h3>
-            <button class="cart-close" onclick="toggleCart()">×</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <div class="empty-cart">
-                <div>🛍️</div>
-                <p>Seu carrinho está vazio</p>
-                <p style="font-size:14px;margin-top:10px;">Adicione produtos para continuar</p>
-            </div>
-        </div>
+        <div class="cart-header"><h3>🛒 Meu Carrinho</h3><button class="cart-close" onclick="toggleCart()">×</button></div>
+        <div class="cart-items" id="cartItems"><div class="empty-cart"><div>🛍️</div><p>Seu carrinho está vazio</p></div></div>
         <div class="cart-footer">
             <div class="cart-summary" id="cartSummary" style="display: none;">
-                <div class="summary-row">
-                    <span>Subtotal</span>
-                    <span id="cartSubtotal">R$ 0,00</span>
-                </div>
-                <div class="summary-row">
-                    <span>Frete</span>
-                    <span id="cartShipping">R$ 9,90</span>
-                </div>
-                <div class="summary-row total">
-                    <span>Total</span>
-                    <span id="cartTotal">R$ 0,00</span>
-                </div>
+                <div class="summary-row"><span>Subtotal</span><span id="cartSubtotal">R$ 0,00</span></div>
+                <div class="summary-row"><span>Frete</span><span id="cartShipping">R$ 9,90</span></div>
+                <div class="summary-row total"><span>Total</span><span id="cartTotal">R$ 0,00</span></div>
             </div>
-            <button class="checkout-button" onclick="openCheckout()" id="checkoutBtn" style="display: none;">
-                📱 Finalizar Pedido
-            </button>
-            <button class="clear-cart-btn" onclick="clearCart()" id="clearCartBtn" style="display: none;">
-                🗑️ Limpar Carrinho
-            </button>
+            <button class="checkout-button" onclick="openCheckout()" id="checkoutBtn" style="display: none;">📱 Finalizar Pedido</button>
+            <button class="clear-cart-btn" onclick="clearCart()" id="clearCartBtn" style="display: none;">🗑️ Limpar Carrinho</button>
         </div>
     </div>
 
     <div class="checkout-modal" id="checkoutModal">
         <div class="checkout-container">
-            <div class="checkout-header">
-                <h3>📋 Finalizar Pedido</h3>
-                <button class="checkout-close" onclick="closeCheckout()">×</button>
-            </div>
+            <div class="checkout-header"><h3>📋 Finalizar Pedido</h3><button class="checkout-close" onclick="closeCheckout()">×</button></div>
             <div class="checkout-form" id="checkoutForm"></div>
         </div>
     </div>
-
-    <div class="cep-modal" id="cepModal"></div>
 
     <script>
         // ============================================
@@ -1538,6 +1273,14 @@
         // ============================================
         const PRODUTOS_URL = 'https://raw.githubusercontent.com/Tolezack/JWS/refs/heads/main/produtos.json';
         const WEBHOOK_URL = 'https://discord.com/api/webhooks/1492579672821600448/SlPHvWzJ8KwyRFUQUKELW8nei34LRtPU6X5N7cLskX1dN95LvfU7JAXE3crZZqCf9xQJ';
+        
+        // GITHUB TOKEN PARA ATUALIZAR O ARQUIVO (IMPORTANTE: Guarde este token em local seguro!)
+        // Para este sistema funcionar, você precisa gerar um Personal Access Token no GitHub
+        // Como obter: Settings → Developer settings → Personal access tokens → Tokens (classic)
+        // Permissão necessária: 'repo'
+        const GITHUB_TOKEN = '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'; // <-- COLOQUE SEU TOKEN AQUI
+        const GITHUB_REPO = 'Tolezack/JWS';
+        const GITHUB_PATH = 'produtos.json';
 
         // ============================================
         // VARIÁVEIS GLOBAIS
@@ -1551,6 +1294,7 @@
         };
         let currentCategory = 'all';
         let bannerInterval;
+        let currentFileSha = null; // Para atualização do GitHub
 
         // Tabela de fretes por estado
         const tabelaFreteCorreios = {
@@ -1571,6 +1315,120 @@
         };
 
         // ============================================
+        // FUNÇÕES DE ATUALIZAÇÃO DO GITHUB
+        // ============================================
+        
+        async function getCurrentFileSha() {
+            try {
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.sha;
+                }
+                return null;
+            } catch (error) {
+                console.error('Erro ao obter SHA:', error);
+                return null;
+            }
+        }
+
+        async function atualizarEstoqueNoGitHub(produtosAtualizados) {
+            if (!GITHUB_TOKEN || GITHUB_TOKEN === 'SEU_TOKEN_AQUI') {
+                console.warn('Token GitHub não configurado. Estoque não será atualizado no GitHub.');
+                return false;
+            }
+
+            try {
+                // Obter o SHA atual do arquivo
+                const sha = await getCurrentFileSha();
+                
+                // Preparar o conteúdo
+                const dataToSave = {
+                    produtos: produtosAtualizados,
+                    ultimaAtualizacao: new Date().toISOString()
+                };
+                
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(dataToSave, null, 2))));
+                
+                const body = {
+                    message: `Atualização automática de estoque - ${new Date().toLocaleString('pt-BR')}`,
+                    content: content,
+                    branch: 'main'
+                };
+                
+                if (sha) body.sha = sha;
+                
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/vnd.github.v3+json'
+                    },
+                    body: JSON.stringify(body)
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    currentFileSha = result.content.sha;
+                    console.log('✅ Estoque atualizado no GitHub com sucesso!');
+                    return true;
+                } else {
+                    const error = await response.json();
+                    console.error('Erro GitHub:', error);
+                    return false;
+                }
+            } catch (error) {
+                console.error('Erro ao atualizar GitHub:', error);
+                return false;
+            }
+        }
+
+        // ============================================
+        // FUNÇÃO PARA ATUALIZAR ESTOQUE APÓS COMPRA
+        // ============================================
+        async function atualizarEstoqueAposCompra(itensComprados) {
+            // Criar uma cópia dos produtos para atualizar
+            const produtosAtualizados = JSON.parse(JSON.stringify(produtos));
+            
+            // Atualizar o estoque de cada produto comprado
+            for (const item of itensComprados) {
+                const produtoIndex = produtosAtualizados.findIndex(p => p.id === item.id);
+                if (produtoIndex !== -1) {
+                    const novoEstoque = produtosAtualizados[produtoIndex].estoque - item.quantidade;
+                    produtosAtualizados[produtoIndex].estoque = Math.max(0, novoEstoque);
+                    console.log(`📦 ${item.nome}: estoque atualizado de ${produtos[produtoIndex].estoque} para ${produtosAtualizados[produtoIndex].estoque}`);
+                }
+            }
+            
+            // Atualizar o array global de produtos
+            produtos = produtosAtualizados;
+            
+            // Salvar no localStorage
+            localStorage.setItem('jordanstore_produtos', JSON.stringify(produtos));
+            
+            // Atualizar a interface
+            renderAllProducts();
+            updateCartDisplay();
+            
+            // Sincronizar com GitHub
+            const atualizado = await atualizarEstoqueNoGitHub(produtos);
+            
+            if (atualizado) {
+                showNotification('✅ Estoque atualizado no servidor!', 'success');
+            } else {
+                showNotification('⚠️ Estoque atualizado localmente, mas falhou ao sincronizar com o servidor', 'warning');
+            }
+            
+            return true;
+        }
+
+        // ============================================
         // CARREGAR PRODUTOS DO GITHUB
         // ============================================
         async function carregarProdutos() {
@@ -1581,17 +1439,37 @@
                 const data = await response.json();
                 produtos = data.produtos || data;
                 
+                // Garantir que todos os produtos têm estoque válido
+                produtos = produtos.map(p => ({
+                    ...p,
+                    estoque: p.estoque || 0,
+                    imagens: p.imagens || []
+                }));
+                
                 console.log(`✅ ${produtos.length} produtos carregados!`);
+                
+                // Salvar no localStorage como backup
+                localStorage.setItem('jordanstore_produtos', JSON.stringify(produtos));
+                
                 inicializarLoja();
             } catch (error) {
-                console.error('Erro:', error);
-                document.getElementById('allProducts').innerHTML = `
-                    <div style="grid-column:1/-1;text-align:center;padding:60px">
-                        <div style="font-size:60px">⚠️</div>
-                        <h3>Erro ao carregar produtos</h3>
-                        <p>Verifique sua conexão ou tente novamente.</p>
-                        <button onclick="carregarProdutos()" style="margin-top:20px;padding:12px 24px;background:#000;color:#fff;border:none;border-radius:12px;cursor:pointer">Tentar novamente</button>
-                    </div>`;
+                console.error('Erro ao carregar produtos:', error);
+                
+                // Tentar carregar do localStorage como fallback
+                const localData = localStorage.getItem('jordanstore_produtos');
+                if (localData) {
+                    produtos = JSON.parse(localData);
+                    console.log(`📦 ${produtos.length} produtos carregados do cache local`);
+                    inicializarLoja();
+                } else {
+                    document.getElementById('allProducts').innerHTML = `
+                        <div style="grid-column:1/-1;text-align:center;padding:60px">
+                            <div style="font-size:60px">⚠️</div>
+                            <h3>Erro ao carregar produtos</h3>
+                            <p>Verifique sua conexão ou tente novamente.</p>
+                            <button onclick="carregarProdutos()" style="margin-top:20px;padding:12px 24px;background:#000;color:#fff;border:none;border-radius:12px;cursor:pointer">Tentar novamente</button>
+                        </div>`;
+                }
             }
         }
 
@@ -1642,7 +1520,7 @@
                 <div class="product-card">
                     ${p.estoque <= 3 && p.estoque > 0 ? '<div class="product-badge">ÚLTIMAS UNIDADES</div>' : ''}
                     <div class="product-image-container">
-                        <img src="${p.imagem}" alt="${p.nome}" class="product-image" loading="lazy">
+                        <img src="${p.imagem}" alt="${p.nome}" class="product-image" loading="lazy" onerror="this.src='https://via.placeholder.com/300'">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">${p.nome}</h3>
@@ -1666,7 +1544,7 @@
         function searchProducts() {
             const term = document.getElementById('searchInput').value.toLowerCase();
             let filtered = produtos.filter(p => p.categoria === currentCategory || currentCategory === 'all');
-            if (term) filtered = filtered.filter(p => p.nome.toLowerCase().includes(term) || p.descricao.toLowerCase().includes(term));
+            if (term) filtered = filtered.filter(p => p.nome.toLowerCase().includes(term) || (p.descricao && p.descricao.toLowerCase().includes(term)));
             renderProducts(filtered);
         }
 
@@ -1707,7 +1585,7 @@
             
             saveCart();
             updateCartDisplay();
-            showNotification(`${produto.nome} adicionado!`, 'success');
+            showNotification(`${produto.nome} adicionado ao carrinho!`, 'success');
         }
 
         function saveCart() { localStorage.setItem('jordanstore_cart', JSON.stringify(carrinho)); }
@@ -1749,7 +1627,7 @@
             carrinho.forEach(item => {
                 html += `
                 <div class="cart-item">
-                    <img src="${item.imagem}" class="cart-item-image">
+                    <img src="${item.imagem}" class="cart-item-image" onerror="this.src='https://via.placeholder.com/70'">
                     <div class="cart-item-details">
                         <div class="cart-item-name">${item.nome}</div>
                         <div class="cart-item-price">R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</div>
@@ -1778,7 +1656,7 @@
             } else if (novaQtd <= produto.estoque) {
                 carrinho[index].quantidade = novaQtd;
             } else {
-                showNotification('Estoque insuficiente!', 'warning');
+                showNotification(`Estoque insuficiente! Disponível: ${produto.estoque}`, 'warning');
                 return;
             }
             saveCart();
@@ -1789,7 +1667,7 @@
             carrinho = carrinho.filter(i => i.id !== id);
             saveCart();
             updateCartDisplay();
-            showNotification('Item removido', 'warning');
+            showNotification('Item removido do carrinho', 'warning');
         }
 
         function clearCart() {
@@ -1806,7 +1684,7 @@
         }
 
         // ============================================
-        // CHECKOUT E WEBHOOK
+        // CHECKOUT E WEBHOOK COM ATUALIZAÇÃO DE ESTOQUE
         // ============================================
         function openCheckout() {
             if (carrinho.length === 0) {
@@ -1848,14 +1726,14 @@
                     </div>
                     
                     <div class="order-summary">
-                        <h4>Resumo</h4>
+                        <h4>Resumo do Pedido</h4>
                         ${carrinho.map(i => `<div class="order-item"><span>${i.nome} x${i.quantidade}</span><span>R$ ${(i.preco*i.quantidade).toFixed(2).replace('.',',')}</span></div>`).join('')}
                         <div class="order-item"><span>Subtotal</span><span>R$ ${subtotal.toFixed(2).replace('.',',')}</span></div>
                         <div class="order-item"><span>Frete</span><span id="freteResumo">R$ ${(clienteInfo.frete||9.90).toFixed(2).replace('.',',')}</span></div>
                         <div class="order-total"><span>Total</span><span id="totalResumo">R$ ${(subtotal + (clienteInfo.frete||9.90)).toFixed(2).replace('.',',')}</span></div>
                     </div>
                     
-                    <button type="submit" class="submit-order-btn">📱 Finalizar Pedido</button>
+                    <button type="submit" class="submit-order-btn">📱 Confirmar Pedido</button>
                 </form>`;
             
             modal.classList.add('active');
@@ -1938,6 +1816,8 @@
         function selecionarPagamento(tipo) {
             clienteInfo.pagamento = tipo;
             saveClienteInfo();
+            document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active'));
+            event.target.closest('.payment-option').classList.add('active');
         }
 
         async function finalizarPedido(event) {
@@ -1986,6 +1866,18 @@
                 });
             } catch(e) { console.error('Webhook error:', e); }
             
+            // ** IMPORTANTE: Atualizar o estoque no GitHub **
+            const itensComprados = carrinho.map(item => ({
+                id: item.id,
+                nome: item.nome,
+                quantidade: item.quantidade
+            }));
+            
+            showNotification('🔄 Atualizando estoque...', 'info');
+            
+            // Atualizar o estoque no GitHub
+            await atualizarEstoqueAposCompra(itensComprados);
+            
             // Mensagem WhatsApp
             let msg = `🛍️ *NOVO PEDIDO - JORDAN STORE* 🛍️\n\n`;
             msg += `*Cliente:* ${nome}\n*Telefone:* ${telefone}\n\n`;
@@ -1993,13 +1885,20 @@
             msg += `*ITENS:*\n${carrinho.map(i => `• ${i.nome} x${i.quantidade} - R$ ${(i.preco*i.quantidade).toFixed(2)}`).join('\n')}\n\n`;
             msg += `*TOTAL:* R$ ${total.toFixed(2)}\n*PAGAMENTO:* PIX`;
             
+            // Limpar carrinho
             carrinho = [];
             saveCart();
             updateCartDisplay();
             closeCheckout();
             
+            // Abrir WhatsApp
             window.open(`https://wa.me/555181875780?text=${encodeURIComponent(msg)}`, '_blank');
-            showNotification('Pedido enviado!', 'success');
+            showNotification('✅ Pedido finalizado com sucesso!', 'success');
+            
+            // Recarregar produtos para garantir que a UI está atualizada
+            setTimeout(() => {
+                renderAllProducts();
+            }, 500);
         }
 
         // ============================================
@@ -2019,7 +1918,7 @@
         function showNotification(msg, type = 'success') {
             const n = document.createElement('div');
             n.className = `notification ${type}`;
-            n.innerHTML = `<div>${type === 'success' ? '✅' : '⚠️'} ${msg}</div>`;
+            n.innerHTML = `<div>${type === 'success' ? '✅' : type === 'error' ? '❌' : '⚠️'} ${msg}</div>`;
             document.body.appendChild(n);
             setTimeout(() => n.remove(), 3000);
         }
@@ -2043,11 +1942,16 @@
                 <div style="padding:30px">
                     <h2>${p.nome}</h2>
                     <div style="font-size:28px;font-weight:bold;margin:20px 0">R$ ${p.preco.toFixed(2).replace('.',',')}</div>
-                    <p>${p.descricao}</p>
-                    <p style="margin-top:15px"><strong>Estoque:</strong> ${p.estoque} unidades</p>
-                    <button onclick="addToCart('${p.id}');closeModal('detailsModal')" style="width:100%;padding:16px;background:#000;color:#fff;border:none;border-radius:12px;margin-top:20px;cursor:pointer">
-                        🛒 Adicionar ao Carrinho
-                    </button>
+                    <p>${p.descricao || 'Sem descrição'}</p>
+                    <p style="margin-top:15px"><strong>Estoque disponível:</strong> ${p.estoque} unidades</p>
+                    ${p.estoque > 0 ? 
+                        `<button onclick="addToCart('${p.id}');closeModal('detailsModal')" style="width:100%;padding:16px;background:#000;color:#fff;border:none;border-radius:12px;margin-top:20px;cursor:pointer">
+                            🛒 Adicionar ao Carrinho
+                        </button>` :
+                        `<button disabled style="width:100%;padding:16px;background:#bdc3c7;color:#fff;border:none;border-radius:12px;margin-top:20px;cursor:not-allowed">
+                            🔴 Produto Esgotado
+                        </button>`
+                    }
                 </div>
             </div>`;
             modal.classList.add('active');
